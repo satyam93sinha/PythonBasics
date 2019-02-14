@@ -1,0 +1,202 @@
+https://docs.python.org/3/tutorial/controlflow.html#keyword-arguments
+
+KEYWORD ARGUMENTS-
+
+Functions can be called using keyword arguments of the form kwarg=value.
+>>> def parrot(colour,sound="multiple sounds",fly='yes',species=393):
+	print("Parrot is ",colour)
+	print("Parrot can produce",sound,"comes from a family of ",species,"species")
+
+	
+>>> parrot(colour="Green")
+Parrot is  Green
+Parrot can produce multiple sounds comes from a family of  393 species
+>>> """ Here we are calling parrot function passing colour as keyword argument."""
+' Here we are calling parrot function passing colour as keyword argument.'
+
+>>> def parrot(colour,sound="multiple sounds",fly='yes',species=393):
+	print("Parrot is ",colour)
+	print("Parrot can produce",sound,"comes from a family of ",species,"species")
+
+	
+>>> parrot('Green')#1 required positional argument
+Parrot is  Green
+Parrot can produce multiple sounds comes from a family of  393 species
+>>> def parrot(colour,sound="multiple sounds",fly='yes',species=393):
+	print("Parrot is ",colour)
+	print("Parrot can produce",sound,"comes from a family of ",species,"species")
+	print(colour,sound,fly,species)
+
+	
+>>> parrot('Green','screaching qwack','fly is true','parrots species 393')
+Parrot is  Green
+Parrot can produce screaching qwack comes from a family of  parrots species 393 species
+Green screaching qwack fly is true parrots species 393
+>>> #We passed 4 positional arguments
+>>> parrot(colour='Green',sound='mimicry',fly='true',species='393 parrot species')
+Parrot is  Green
+Parrot can produce mimicry comes from a family of  393 parrot species species
+Green mimicry true 393 parrot species
+>>> parrot('Green',species='393 parrot species',fly='true',sound='mimicry')
+#1 positional argument followed by 3 keyword arguments passed randomly
+Parrot is  Green
+Parrot can produce mimicry comes from a family of  393 parrot species species
+Green mimicry true 393 parrot species
+>>> parrot(fly='true','green')#1 keyword argument followed by 1 positional argument passed randomly
+SyntaxError: positional argument follows keyword argument
+
+Note- We can't pass arguments to a function in following ways :
+parrot() 
+# required argument missing
+parrot(voltage=5.0, 'dead') 
+# non-keyword argument(positional argument) followed by a keyword argument 
+parrot(110, voltage=220) 
+# duplicate value for the same argument 
+parrot(actor='John Cleese') 
+# unknown keyword argument 
+
+RULES TO FOLLOW-
+
+1. IN A FUNCTION CALL KEYWORD ARGUMENT MUST FOLLOW POSITIONAL ARGUMENTS, IT CAN NEVER BE VICE VERSA.
+2. All the keyword arguments passed must match one of the arguments accepted by the function CONTD...
+3. CONTD...and their order is not important, i.e., order among passing keyword arguments is not important, can be random.
+4. No argument may receive a value more than once.
+Three types of arguments are passed in Python-
+a. Positional arguments receive values/ arguments for mentioned parameters directly during function call. It is mandate to pass these as arguments during function call because there's no default value already defined to argument declared in function definition.
+b. Keyword arguments receive arguments in key-value pairs or as positional arguments provided they are in same order as declared during function definition.
+c. Variadic argument (*name) receives a tuple.
+d. Final formal parameter (**names) receives a dictionary.
+Note- Variadic arguments must occur before (layman term) dictionary argument (**names). 
+These arguments must be declared in function definition in the order:
+1. Positional Arguments
+2. Variadic Arguments
+3. Keyword Arguments
+4. Final Formal Parameter or Dictionary.
+
+>>> def arguments(types,*args,**kwargs):
+	print('Type of argument called:',types)
+	for i in args:
+		print(i)
+	for kw in kwargs:
+		print(kw,':\t',kwargs[kw])
+
+		
+>>> arguments('positional','directly','passing','arguments','to formal parameters')
+Type of argument called: positional
+directly
+passing
+arguments
+to formal parameters
+>>> arguments('positional',way='passing',kind='arguments',where='to final formal parameters')
+Type of argument called: positional
+way :	 passing
+kind :	 arguments
+where :	 to final formal parameters
+# *args receives a tuple, its indices must be integers or slices, not tuple or str. **kwargs receives a dictionary thus will hold multiple keyword arguments,dynamically or those assigned at the time of function call. We have already mentioned variadic arguments (which take input as positional argument) thus it can be followed by keyword argument but not vice versa. This might be the reason why *args is to be followed by **kwargs in any program.
+
+>>> def arguments(types,*args,**kwargs):
+	print('Type of argument called:',types)
+	for i in args:
+		print(i,':\t',args[i])
+
+		
+>>> arguments('positional','directly','passing','arguments','to formal parameters')
+Type of argument called: positional
+Traceback (most recent call last):
+  File "<pyshell#5>", line 1, in <module>
+    arguments('positional','directly','passing','arguments','to formal parameters')
+  File "<pyshell#4>", line 4, in arguments
+    print(i,':\t',args[i])
+TypeError: tuple indices must be integers or slices, not str
+#Accessed indices of args separately through i which is not any counter variable but it stores what is given to it through iteration over list, tuple or anything. Here, in this case args receive a tuple, i stores the values passed as positional arguments to that args tuple. Thus the error stating "tuple indices must be integers,slices, not str".
+
+Note that the order in which the keyword arguments are printed is guaranteed to match the order in which they were provided in the function call.
+
+ARBITRARY ARGUMENT LISTS-
+A function can be called with any arbitrary number of arguments, means-
+1. Positional or default arguments passed are required to be provided while calling that function.
+2. If there's variadic argument, it must be last in parameter with respect to positional arguments so that the former could wrap up the remaining passed positional arguments in a tuple without any confusion.
+3. Only Keyword arguments are permitted (to be passed on function call) after variadic argument so that compiler or the interpreter can directly allot the passed arguments at the time of function call to respective tuple received by variadic argument or dictionary received by final formal argument of type **name.
+4. Any formal parameters which occur after the *args parameter are ‘keyword-only’ arguments, meaning that they can only be used as keywords rather than positional arguments.
+
+>>> def parrot(*args,color):
+	for i in args:
+		print(i)
+	print(color)
+
+	
+>>> parrot(1,2,3,4,'not red')
+Traceback (most recent call last):
+  File "<pyshell#5>", line 1, in <module>
+    parrot(1,2,3,4,'not red')
+TypeError: parrot() missing 1 required keyword-only argument: 'color'
+>>> parrot(1,2,3,4,color='not red')
+1
+2
+3
+4
+not red
+join(...)
+ |      S.join(iterable) -> str
+ |      
+ |      Return a string which is the concatenation of the strings in the
+ |      iterable(object).  The separator between elements is S.
+
+UNPACKING ARGUMENT LISTS-
+>>> range(9)
+range(0, 9)
+#range expects start and stop argument separately but if we provide just the stop argument as positional argument (that too in int), range() sets the default start argument to zero and returns it as we see it in output.
+
+>>> list(range(9))
+[0, 1, 2, 3, 4, 5, 6, 7, 8]
+#We already know the difference between range() and list(), here we get a list for argument passed as range() with stop argument 9. As it sets default start argument to zero, thus list starts from o and ends at 9.
+>>> args=[4,8]
+>>> list(range(args))
+Traceback (most recent call last):
+  File "<pyshell#3>", line 1, in <module>
+    list(range(args))
+TypeError: 'list' object cannot be interpreted as an integer
+#Describes range() always takes integer as argument and not any other data type or data structure.
+>>> list(range(*args))
+[4, 5, 6, 7]
+# we have used *-operator to unpack the args list to treat the elements as individual ones and then they are passed to range() as separate entities(arguments, integers).
+>>> def parrot(voltage, state='a stiff', action='voom'): 
+... print("-- This parrot wouldn't", action, end=' ') 
+... print("if you put", voltage, "volts through it.", end=' ') 
+... print("E's", state, "!") 
+... 
+>>> d = {"voltage": "four million", "state": "bleedin' demised", "action": "VOOM"} 
+>>> parrot(**d) -- This parrot wouldn't VOOM if you put four million volts through it. E's bleedin' demised !
+In the same fashion, dictionaries can deliver keyword arguments with the **-operator: 
+EXAMPLE:
+>>> def unpacking_dict(string,integer,double):
+	"""A function to show unpacking of dictionary"""
+	print(string,'\n',integer,'\n',double)
+
+	
+>>> dic={string:'Hey',integer:50,double:65.3}
+Traceback (most recent call last):
+  File "<pyshell#4>", line 1, in <module>
+    dic={string:'Hey',integer:50,double:65.3}
+NameError: name 'string' is not defined
+>>> dic={'string':'Hey','integer':50,'double':65.3}
+>>> unpacking_dict(dic)
+Traceback (most recent call last):
+  File "<pyshell#6>", line 1, in <module>
+    unpacking_dict(dic)
+TypeError: unpacking_dict() missing 2 required positional arguments: 'integer' and 'double'
+>>> unpacking_dict(dic,2,4.5)
+{'string': 'Hey', 'integer': 50, 'double': 65.3} 
+ 2 
+ 4.5
+>>> unpacking_dict(**dic)
+Hey 
+ 50 
+ 65.3
+>>> def unpacking_dict(string,integer,double):
+	"""A function to show unpacking of dictionary"""
+	print(string,integer,double)
+
+	
+>>> unpacking_dict(**dic)
+Hey 50 65.3

@@ -1,0 +1,170 @@
+﻿Refer to 1-Reading and Writing Files.py and 2-Reading and Writing Files.py
+
+READING AND WRITING FILES:
+open() returns  a file object.
+Open file and return a stream.  Raise OSError upon failure.
+Arguments in open()-
+open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None)
+Arguments Description-
+file : file is either a text or byte string giving the name (and the path if the file isn't in the current working directory) of the file to be opened or an integer file descriptor of the file to be wrapped. (If a file descriptor is given, it is closed when the returned I/O object is closed, unless closefd is set to False.) 
+mode : 
+1. keyword argument,
+2. optional string,
+3. specifies mode in which file is to be opened,
+4. it is by default 'r' which means open for reading in text mode.
+Other modes are-
+'r'       open for reading (default)
+'w'      open for writing, truncating the file first(if already exists file is overwritten)
+>>> with open('file1.txt', 'r') as f:
+	f.read()	
+'HEY'
+>>> with open('file1.txt', 'w') as f:
+	f.write('truncating HEY, writing HI')
+26
+>>> with open('file1.txt') as f:
+	f.read()
+truncating HEY, writing HI'
+
+'x'       create a new file and open it for writing, i.e, creating and writing to a new file
+>>> with open('file1.txt', 'x') as f:
+	f.write('new file created, opened for writing mode')
+Traceback (most recent call last):
+  File "<pyshell#13>", line 1, in <module>
+    with open('file1.txt', 'x') as f:
+FileExistsError: [Errno 17] File exists: 'file1.txt'
+>>> # the error itself clarifies, file of same name exists
+>>> with open('file3.txt', 'x') as f:
+	f.write('new file created, opened for writing mode')	
+41
+>>> with open('file3.txt') as f:
+	f.read()
+'new file created, opened for writing mode'
+
+'a'       open for writing, appending to the end of the file if it exists. 'a' for appending (which on some Unix systems, means that all writes
+append to the end of the file regardless of the current seek position, i.e, whatever you write will only be append to the end of file.)
+>>> with open('file1.txt', 'a') as f:
+	f.append('This time appending')
+Traceback (most recent call last):
+  File "<pyshell#21>", line 2, in <module>
+    f.append('This time appending')
+AttributeError: '_io.TextIOWrapper' object has no attribute 'append'
+>>> with open('file1.txt', 'a') as f:
+	f.write('This time appending')	
+19
+>>> with open('file1.txt') as f:
+	f.read()	
+'truncating HEY, writing HIThis time appending'
+
+'b'       binary mode
+>>> with open('file1.txt', 'b') as f:
+	f.read()	
+Traceback (most recent call last):
+  File "<pyshell#33>", line 1, in <module>
+    with open('file1.txt', 'b') as f:
+ValueError: Must have exactly one of create/read/write/append mode and at most one plus
+>>> # 'b' mode is applicable only with any of the read/write/create/append
+>>> # mode and a plus sign to add it to binary mode.
+>>> with open('file1.txt', 'r+b') as f:
+	f.read()	
+b'truncating HEY, writing HIThis time appending'
+>>> # generates the bytes version of text present in the file.
+>>> # converts the string to bytes type.
+
+'t'       text mode (default)
+similar to 'b', by default every operation in files occur in text mode.
+
+'+'       open a disk file for updating (reading and writing)
+>>> with open('file1.txt', 'r+') as f:
+	f.read()
+	f.write('new text, performing read and write simultaneously')
+	print(f.read())	
+'\n line change and writing in w+t modenew text, performing read and write simultaneously'
+50
+>>> """While performing read and write simultaneously, the write()
+    method appends text to the end of file rather overwritting it."""
+
+'U'       universal newline mode (deprecated)
+>>> with open('file1.txt', 'U') as f:
+	f.read()
+Warning (from warnings module):
+  File "__main__", line 1
+DeprecationWarning: 'U' mode is deprecated
+'\n line change and writing in w+t modenew text, performing read and write simultaneouslynew text, performing read and write simultaneously'
+
+buffering : buffering is an optional integer used to set the buffering policy.
+Pass 0 to switch buffering off (only allowed in binary mode), 1 to select
+line buffering (only usable in text mode), and an integer > 1 to indicate
+the size of a fixed-size chunk buffer.  When no buffering argument is
+given, the default buffering policy works as follows:
+* Binary files are buffered in fixed-size chunks; the size of the buffer
+  is chosen using a heuristic trying to determine the underlying device's
+  "block size" and falling back on `io.DEFAULT_BUFFER_SIZE`.
+  On many systems, the buffer will typically be 4096 or 8192 bytes long.
+* "Interactive" text files (files for which isatty() returns True)
+  use line buffering.  Other text files use the policy described above
+  for binary files.
+Buffered I/O involves reading or writing data in chunks: If a request to read a single character is made the system will actually read, say, a thousand characters from the device into a buffer in memory, then return just the first character from the buffer to the calling routine. Subsequent requests can be fulfilled entirely from the buffer (until it is depleted), which as it exists in memory can be accessed many times faster than can the device itself.
+Buffered writes happen in a similar manner: Data written by a process is first accumulated in a buffer in memory until the buffer is full (or a time limit elapses), at which point the entire buffer is written to the device at once. Again, this reduces the number of real I/O operations involved and makes the system appear much faster.
+--> The above para suggests that read and write operations are performed faster through buffer so there may be this reason for us using buffering in open() as argument.
+
+encoding : 
+1. encoding is the name of the encoding used to decode or encode the file.
+2. This should only be used in text mode. 
+3. The default encoding is platform dependent, but any encoding supported by Python can be passed.
+See the codecs module for the list of supported encodings.
+
+errors:
+1. optional string,
+2. specifies how encoding errors are to be handled,
+3. this argument shouldn't be used in binary mode.
+4. Pass 'strict' to raise a ValueError exception if there is an encoding error (the default of None has the same effect), or pass 'ignore' to ignore errors. (Note that ignoring encoding errors can lead to data loss.)
+See the documentation for codecs.register or run 'help(codecs.Codec)'
+for a list of the permitted encoding error strings.
+
+newline:
+1. controls how universal newlines work
+2. only applies to text mode
+3. can be None, ' ', '\n', '\r\n'.
+Works as follows:
+* On input, if newline is None, universal newlines mode is
+  enabled. Lines in the input can end in '\n', '\r', or '\r\n', and
+  these are translated into '\n' before being returned to the
+  caller. If it is '', universal newline mode is enabled, but line
+  endings are returned to the caller untranslated. If it has any of
+  the other legal values, input lines are only terminated by the given
+  string, and the line ending is returned to the caller untranslated.
+* On output, We include new line or line change in file1.txt, then if newline=None, by default, we see \n which is translated form for new line to its corresponding system default line separator, os.linesep. If newline=\n in open() we see the \r included in output for cursor position. 
+Refer to 2-Reading and Writing Files.py
+
+closefd : If closefd is False, the underlying file descriptor will be kept open when the file is closed. This does not work when a file name is given and must be True in that case.
+
+A custom opener can be used by passing a callable as *opener*. The
+underlying file descriptor for the file object is then obtained by
+calling *opener* with (*file*, *flags*). *opener* must return an open
+file descriptor (passing os.open as *opener* results in functionality
+similar to passing None).
+
+open() returns a file object whose type depends on the mode, and
+through which the standard file operations such as reading and writing are performed. When open() is used to open a file in a text mode ('w', 'r', 'wt', 'rt', etc.), it returns a TextIOWrapper. When used to open
+a file in a binary mode, the returned class varies: in read binary
+mode, it returns a BufferedReader; in write binary and append binary
+modes, it returns a BufferedWriter, and in read/write mode, it returns
+a BufferedRandom.
+
+It is also possible to use a string or bytearray as a file for both
+reading and writing. For strings StringIO can be used like a file
+opened in a text mode, and for bytes a BytesIO can be used like a file opened in a binary mode.
+
+Normally, ﬁles are opened in text mode, that means, you read and write strings from and to the ﬁle, which are encoded in a speciﬁc encoding. If encoding is not speciﬁed, the default is platform dependent (see open()). 'b' appended to the mode opens the ﬁle in binary mode: now the data is read and written in the form of bytes objects. This mode should be used for all ﬁles that don’t contain text. 
+In text mode,
+1. default when reading is to convert platform-specific line endings (\n on Unix, \r\n on Windows) to just \n.
+2. When writing in text mode, the default is to convert occurrences of \n, i.e, line change back to platform-specific line endings.
+These are behind-the-scenes modification to file data, are fine for text files but will corrupt binary data like that in JPEG, EXE files. Be very careful to use binary mode when reading and writing such files.
+In other words, when encoding is unknown in text mode, the default is platform dependent. Thus, depending upon the platform when reading, converts platform-specific line endings to \n, i.e, line change and when writing it converts vice versa. It can corrupt JPEG and EXE files bcoz it may change lines in JPEG distorting pixels.
+
+It is good practice to use the with keyword when dealing with ﬁle objects. The advantage is that the ﬁle is properly closed after its suite ﬁnishes, even if an exception is raised at some point. Using with is also much shorter than writing equivalent try-finally blocks: 
+>>> with open('workfile') as f: 
+... read_data = f.read() 
+>>> f.closed 
+True 
+If you’re not using the with keyword, then you should call f.close() to close the ﬁle and immediately free up any system resources used by it. If you don’t explicitly close a ﬁle, Python’s garbage collector will eventually destroy the object and close the open ﬁle for you, but the ﬁle may stay open for a while. Another risk is that diﬀerent Python implementations will do this clean-up at diﬀerent times. After a ﬁle object is closed, either by a with statement or by calling f.close(), attempts to use the ﬁle object will automatically fail. 

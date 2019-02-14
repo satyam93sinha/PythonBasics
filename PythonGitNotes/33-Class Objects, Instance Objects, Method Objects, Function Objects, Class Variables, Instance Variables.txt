@@ -1,0 +1,142 @@
+﻿Refer to 1-Class Objects.py, 2-Class Objects.py, 3-Class Objects.py, 1-Class and Instance Variables.py
+
+CLASS OBJECTS
+As soon as we define a class, a new class object is created with the same name. This class object allows us to access the different attributes as well as to instantiate new objects of that class.
+An object is also called an instance of a class and the process of creating this object is called instantiation.
+Class objects support two kinds of operations:
+1. Attribute References-
+use standard syntax for referencing attributes as obj.name in Python.  Valid attribute names are all the names that were in the class’s namespace when the class object was created. So, if the class deﬁnition looked like this: 
+>>> MyClass.MyClass_func()
+'MyClass_func'
+>>> class MyClass:
+	"""Attribute reference
+        accesses, changes, deletes attribute of class"""
+	i = 56
+	print('i in MyClass:{}'.format(i))
+	def MyClass_func(self):
+		return 'MyClass_func'
+i in MyClass:56
+>>> MyClass.MyClass_func(MyClass)
+'MyClass_func'
+>>> # accessing the valid attribute references of MyClass.
+then MyClass.i and MyClass.MyClass_func(MyClass) are valid attribute references, returning an integer and a function object (string in this case), respectively. Class attributes can also be assigned to, so you can change the value of MyClass.i by assignment. __doc__ is also a valid attribute, returning the docstring belonging to the class: 
+"""Attribute reference
+        accesses, changes, deletes attribute of class""".
+Class instantiation uses function notation, if no parameters are provided in class' __init__ method (acts as constructor of Java), we would simply write:
+>>> obj = MyClass()
+Also, note that obj here is the object (can be considered as parameterless function)  that returns a new instance of the class. In other words, new instance of class is created and this object is assigned to the local variable obj.
+MyClass() (object creating new instance of class) and obj (local variable where this instance is assigned so now we can refer to this new instance through obj).
+The instantiation operation (“calling” a class object) creates an empty object. In the above example the code simply gets executed displaying i and returning function object. Thus, we can say that we haven't initialized. Many classes like to create objects with instances customized to a speciﬁc initial state(constructor in Java). Therefore a class may deﬁne a special method named __init__(), like this: 
+>>> class MyClass:
+	j = 3
+	print('j:{}'.format(j))
+	def __init__(self, i):
+		self.i = i
+		i = 5
+		print('i:{}, self.i:{}'.format(i, self.i))
+            obj = MyClass(14)
+j:3
+i:5, self.i:14
+# j is in global scope of class, prints j:3 simply as defined
+# i is passed while creating an instance of the class, 14 is passed as argument thus self.i, which is for classname.i stays 14, unchanged.
+When a class deﬁnes an __init__() method, class instantiation automatically invokes __init__() for the newly-created class instance. Thus, whenever __init__ has to be invoked, we can either directly call obj or go for creating new instance. We can also call obj multiple times to create an instance of same object, i.e, MyClass(14){called class instantiatio operator}, displaying the same result with every call. Of course, the __init__() method may have arguments for greater ﬂexibility. In that case, arguments given to the class instantiation operator are passed on to __init__().
+
+INSTANCE OBJECTS:
+Only operations understood by instance objects are attribute references. Two kinds of valid attribute names:
+1. Data Attributes-
+a) need not be declared as local variables,
+b) come into existence when first assigned to
+Ex-
+>>> class MyClass_2:
+	def undefined_var(j):
+		print("undefined_var, defined later:{}".format(j))
+>>> MyClass_2.j = 2
+>>> for i in range(5):
+	j += i
+Traceback (most recent call last):
+  File "<pyshell#27>", line 2, in <module>
+    j += i
+NameError: name 'j' is not defined
+>>> for i in range(5):
+	MyClass_2.j += i
+In the above case j is not defined in class, before it was assigned to a function but we used it without any exceptions of NameError. We can see that in Interpreter program 3-Class Objects.py
+We could have also created an instance of the class assigning it to any variable and then declaring data attributes anywhere in Script, outside of class(provided these variables are declared in the scope they should be).
+2. Methods:
+is a function that belongs to an object. In other words, functions that belong to a class is called as methods for objects, when accessed by an object of that class(objects instantiate class). In Python, the term method is not unique to class instances: other object types can have methods as well. For example, list objects have methods called append, insert, remove, sort, and so on. However, in the following discussion, we’ll use the term method exclusively to mean methods of class instance objects, unless explicitly stated otherwise.
+Ex-
+>>> class MyClass:
+	def __init__(self, i):
+		self.i = i
+		i = 5
+		print("self.i:{0}, i:{1}, id(self.i):{2}, id(i):{3}"
+		      .format(self.i, i, id(self.i), id(i)))
+	def simple_functn(i):
+		print("simple_function:{}, id(i):{}".format(i, id(i)))
+
+>>> obj = MyClass(15)
+self.i:15, i:5, id(self.i):1807403360, id(i):1807403200
+>>> # see for id(self.i) and id(i) both are different so located at
+>>> # different memory locations.
+>>> obj.simple_functn
+<bound method MyClass.simple_functn of <__main__.MyClass object at 0x0406DDB0>>
+>>> obj.simple_functn(2)
+Traceback (most recent call last):
+  File "<pyshell#14>", line 1, in <module>
+    obj.simple_functn(2)
+TypeError: simple_functn() takes 1 positional argument but 2 were given
+>>> # requires 1 positional argument, but one was given while creating instance
+>>> # of class, thus, that is taken as argument for simple_functn(i)
+>>> # here MyClass(15), simple_functn(i) 15 is taken as i.
+>>> MyClass.simple_functn(8)
+simple_function:8, id(i):1807403248
+>>> # i in simple_functn is at different location than those in __init__
+Note::
+>>> obj = MyClass(15) # creates instance of class
+>>> obj.simple_functn
+<bound method MyClass.simple_functn of <__main__.MyClass object at 0x0406DDB0>>
+Method object simple_functn bcoz accessed through object obj of MyClass.
+>>> MyClass.simple_functn(8)
+simple_function:8, id(i):1807403248
+simple_functn is Function object of MyClass.
+>>> obj.simple_functn()
+<bound method MyClass.simple_functn of <__main__.MyClass object at 0x0406DDB0>>
+You may have noticed the self parameter in function definition inside the class but, we called the method simply as obj.func() without any arguments. It still worked. This is because, whenever an object calls its method, the object itself is passed as the first argument. So, obj.func() translates into MyClass.func(obj).
+self is Class Object.
+Now, we know Class Object, Instance Object, Function Object, Method Object.
+Python Documentation::
+What exactly happens when a method is called? You may have noticed that x.f() was called without an argument above, even though the function deﬁnition for f() speciﬁed an argument. What happened to the argument? Surely Python raises an exception when a function that requires an argument is called without any — even if the argument isn’t actually used… Actually, you may have guessed the answer: the special thing about methods is that the instance object is passed as the ﬁrst argument of the function. In our example, the call x.f() is exactly equivalent to MyClass. f(x). In general, calling a method with a list of n arguments is equivalent to calling the corresponding function with an argument list that is created by inserting the method’s instance object before the ﬁrst argument. If you still don’t understand how methods work, a look at the implementation can perhaps clarify matters. When an instance attribute is referenced that isn’t a data attribute, its class is searched. If the name denotes a valid class attribute that is a function object, a method object is created by packing (pointers to) the instance object and the function object just found together in an abstract object: this is the method object. When the method object is called with an argument list, a new argument list is constructed from the instance object and the argument list, and the function object is called with this new argument list.
+
+CLASS AND INSTANCE VARIABLES
+
+Instance variables are for data unique to each instance whereas class variables are for attributes and methods shared by all instances of the class.
+>>> class Dog:
+	kind = 'canine'
+	# class variable, static field in Java
+	# doesn't change with every instantiation of Dog class.
+	def __init__(self, name):
+		# constructor in Java
+		self.name = name
+		# instance variable, non-static field in Java
+		# changes with every instantiation of Dog Class.
+
+		
+>>> d = Dog('Foggy')
+>>> e = Dog() # expects one argument bcoz constructor expects positional arg
+Traceback (most recent call last):
+  File "<pyshell#11>", line 1, in <module>
+    e = Dog() # expects one argument bcoz constructor expects positional arg
+TypeError: __init__() missing 1 required positional argument: 'name'
+>>> e = Dog('buddy')
+>>> d.kind
+'canine'
+>>> e.kind
+'canine'
+>>> # for both the instance objects, d and e, class variables remain the same
+>>> d.name
+'Foggy'
+>>> e.name
+'buddy'
+>>> # instance variables change with every new instance of Dog class,
+>>> # depends upon the argument passed with every instantiation.
+Mutable objects as lists, dictionaries must not be used as class variables. The reason is shown in example below-
+1-Class Variables and Instance Variables.py

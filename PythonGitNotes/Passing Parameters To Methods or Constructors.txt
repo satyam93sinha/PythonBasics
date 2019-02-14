@@ -1,0 +1,33 @@
+https://docs.oracle.com/javase/tutorial/java/javaOO/arguments.html
+
+PASSING PARAMETERS TO METHODS OR CONSTRUCTORS:
+
+Note: Parameters refers to the list of variables in a method declaration. Arguments are the actual values that are passed in when the method is invoked. When you invoke a method, the arguments used must match the declaration's parameters in type and order.
+
+Declaration for a Method or Constructor contains:
+1) Access modifier to describe the restriction if any to that Method or Constructor.
+2) Static or non-static, we include Static keyword if Method has to be Static. Remember Constructor can't be Static. Refer to Static section for more details on 'Static' Keyword.
+3) Return Type, it can be any primitive data type mainly the value returned from Method to the calling Method. There's no return type in Constructor as discussed in Constructor section.
+4) Method's name following naming conventions. Constructor must be named same to that of the class name.
+5) Type of parameters if any with their names enclose in parenthesis. Ensure arguments of same data type and in same order is invoked while creating object in case of Constructor and calling in case of Methods.
+The above mentioned points declare methods and constructors.
+
+ARBITRARY NUMBER OF ARGUMENTS:
+We can use a construct called varargs to pass an arbitrary number of values to a method. It's a short-cut to creating an array manually. Varargs is declared by first assigning or declaring the data-type followed by an ellipsis(three dots...), then a space, and the parameter name. This method can be called with any number of arguments, including none.
+public Polygon polygonFrom(Point... corners) {
+    int numberOfSides = corners.length;
+    double squareOfSide1, lengthOfSide1;
+    squareOfSide1 = (corners[1].x - corners[0].x)
+                     * (corners[1].x - corners[0].x) 
+                     + (corners[1].y - corners[0].y)
+                     * (corners[1].y - corners[0].y);
+    // side=(x2-x1)^2+(y2-y1)^2;    
+    lengthOfSide1 = Math.sqrt(squareOfSide1);
+
+    // more method body code follows that creates and returns a 
+    // polygon connecting the Points
+}
+The method polygonFrom can be called either with an
+array or a sequence of arguments. In either of these
+ways, the method body code treats the parameter
+as an array.

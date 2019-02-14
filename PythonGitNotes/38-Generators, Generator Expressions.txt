@@ -1,0 +1,60 @@
+﻿Refer to https://www.programiz.com/python-programming/generator
+1-Generators.py, 2-Generators, Generator Expressions.py, GeneratorExamples.py
+
+GENERATORS
+
+Generators are simple way of creating Iterators. It removes the overheads of building an Iterator. The overheads of Iterators can be referred to in 37-Iterators topic.
+We can also say generator is function that returns an object(iterator) to be iterated over(one value at a time using next() or automatically through for loop). Each time next() is called on it, the generator resumes where it left oﬀ (it remembers all the data values and which statement was last executed)
+
+If a function contains at least one yield statement (it may contain other yield or return statements), it becomes a generator function. Both yield and return will return some value from a function.
+The difference is that, while a return statement terminates a function entirely, yield statement pauses the function saving all its states and later continues from there on successive calls.
+
+Generator vs Normal Function
+1. Generator contains one or more yield statement.
+2. Generator Returns Iterator object when called but doesn't execute immediately.
+3. Anything that can be done with generators can also be done with class-based iterators as described in the previous section. What makes generators so compact is that the __iter__() and __next__() methods are created automatically. 
+4. the local variables and execution state are automatically saved between calls. 
+5. Once the function yields, the function is paused and the control is transferred to the caller.
+6. In addition to automatic method creation and saving program state, when generators terminate, they automatically raise StopIteration. In combination, these features make it easy to create iterators with no more eﬀort than writing a regular function.
+
+
+GENERATOR EXPRESSIONS
+
+Some simple generators can be coded succinctly as expressions using a syntax similar to list comprehensions but with parentheses instead of square brackets. These expressions are designed for situations where the generator is used right away by an enclosing function. Generator expressions are more compact but less versatile than full generator deﬁnitions and tend to be more memory friendly than equivalent list comprehensions. 
+Similar to lambda functions, which create anonymous functions, we have Generator Expression which we can  say creates anonymous Generator functions. Also, it is similar to list comprehension provided we use small braces/parantheses than using square brackets. These are memory efficient as they don't store or return complete list as list comprehension but an iterator object which we can iterate upon to get the next elements.
+
+Example of Generator:
+>>> def square_sum():
+	list_ = [1,2,3]
+	sum_ = 0
+	for x in list_:
+		print("x:{}".format(x))
+		sq = x**2
+		print("square of x:{}".format(sq))
+		sum_ = sum_+sq
+		yield "sum:{}".format(sum_)
+
+		
+>>> sq_sum = square_sum()
+>>> next(sq_sum)
+x:1
+square of x:1
+'sum:1'
+>>> next(sq_sum)
+x:2
+square of x:4
+'sum:5'
+>>> next(sq_sum)
+x:3
+square of x:9
+'sum:14'
+>>> next(sq_sum)
+Traceback (most recent call last):
+  File "<pyshell#22>", line 1, in <module>
+    next(sq_sum)
+StopIteration
+
+Converting it to Generator Expression:
+>>> list_ = [1,2,3]
+>>> sum(x**2 for x in list_)
+14

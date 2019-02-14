@@ -1,0 +1,31 @@
+﻿Refer to Tuples.py file for programs practiced while learning it.
+
+TUPLES AND SEQUENCES-
+Lists and Strings have many common properties as indexing and slicing operations. These are sequence data types, the other such data types in Python are Tuples, consisting of number of values separated by commas.
+As you see, on output tuples are always enclosed in parentheses, so that nested tuples are interpreted correctly; but it isn't essential to input them in parentheses. Parentheses are required in case of tuple being a part of larger expressions(nested tuples or more than one tuple's presence). It is an immutable object thus assigning each index(also called as item assignment) or changing it isn't possible. This is the main difference between list and tuple. The similarity is that we can have lists in tuples(as elements) as we can have tuples in lists. Though tuples may seem similar to lists, they are often used in different situations and for different purposes. Tuples are immutable, and usually contain a heterogeneous sequence(different data types) of elements that are accessed via unpacking (see later in this section) or indexing (or even by attribute in the case of namedtuples). Lists are mutable, and their elements are usually homogeneous(not required but by CONVENTION, we can always have heterogenous sequence in list as elements and there will be no error or exception) and are accessed by iterating over the list. 
+A special problem is the construction of tuples containing 0 or 1 items: the syntax has some extra quirks to accommodate these. Empty tuples are constructed by an empty pair of parentheses; a tuple with one item is constructed by following a value with a comma (it is not sufficient to enclose a single value in parentheses). Ugly, but effective. 
+>>> tuples=3,4,2,'tuple', 'data', 'type'
+>>> tuples
+(3, 4, 2, 'tuple', 'data', 'type')
+>>> # returns a tuple, packing of tuple
+>>> a,b,c,lis = tuples
+>>> a
+(3, 3, 42, 'nesting')
+>>> b
+('tuples', 45)
+>>> c
+("let's see", 'how', 'it', 'works')
+>>> lis
+[3, 4]
+>>> tuples
+((3, 3, 42, 'nesting'), ('tuples', 45), ("let's see", 'how', 'it', 'works'), [3, 4])
+>>> # unpacking of tuple by assigning them to different objects using assignment operator.
+This is called, appropriately enough, sequence unpacking and works for any sequence on the right-hand side. Sequence unpacking requires that there are as many variables on the left side of the equals sign as there are elements in the sequence. 
+NOTE - that multiple assignment is really just a combination of tuple packing and sequence unpacking.
+
+SETS-
+Python has a data-type for sets. SETS is unordered collection with no duplicate entries/elements. Basic uses include membership testing and eliminating duplicate entries. Thus, as we know sets have mathematical operations as union, intersection, difference and symmetric difference, all of these are supported in Python by Set Objects. 
+
+FOR set REFERENCE refer :
+G:\Softwares\Python 3.7.0\Set and Operations on Sets.py
+G:\ProgramsPython\TuplesNew.py

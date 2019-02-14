@@ -1,0 +1,221 @@
+﻿Refer to 1-Handling Exceptions.py, class, handling exceptions script.py, 2-Handling Exceptions.py, 3-Handling Exceptions
+
+HANDLING EXCEPTIONS:
+We can write simple programs to handle specific exceptions. These are written in try and except blocks. The use of try block is to raise the exception whereas except blocks are also called as 'handlers' as they handle exceptions. The exception type name is follows except keyword to specify which kind of exception would be handled by that particular 'except' clause. Additionally, a try block must be followed by an except clause or a finally clause so that the handlers at least have something to handle the exceptions raised by try block.
+Ex-
+>>> while True:
+	try:
+		num = int(input("Enter a valid num:"))
+		break
+	except ValueError:
+		print("Sorry, invalid num, try again")
+		
+Enter a valid num:r
+Sorry, invalid num, try again
+Enter a valid num:r
+Sorry, invalid num, try again
+Enter a valid num:e
+Sorry, invalid num, try again
+Enter a valid num:w
+Sorry, invalid num, try again
+Enter a valid num:s
+Sorry, invalid num, try again
+Enter a valid num:3
+Look at the above example, which asks the user for input until a valid integer has been entered, but allows the user to interrupt the program (using Control-C or whatever the operating system supports); note that a user-generated interruption is signalled by raising the KeyboardInterrupt exception. 
+Thus, any program with such kind of unlimited times exceptions being thrown without any stop can be stopped or interrupted through control-C or OS supported interrupts which raises KeyboardInterrupt exception. In other words, technically, we can say to stop an exception or interrupt it we trigger another exception called KeyboardInterrupt exception.
+The try statement works as follows:
+• First, the try clause (the statement(s) between the try and except keywords) is executed. 
+• If no exception occurs(in try block), the except clause is skipped and execution of the try statement(block) is ﬁnished. 
+• If an exception occurs during execution of the try clause, the rest of the clause(rest of the statements in try block) is skipped. Then if its(exception type raised by try statement) type matches the exception named after the except keyword, the except clause is executed, and then execution continues after the try statement(which raised the previous exception). 
+• If an exception occurs which does not match the exception named in the except clause, it is passed on to outer try statements(in case of nested try and except blocks); if no handler is found, it is an unhandled exception and execution stops with an error message.
+• A try statement may have more than one except clause, to specify handlers for different exceptions. At most one handler will be executed. Handlers only handle exceptions that occur in the corresponding try clause, not in other handlers(except clauses) of the same try statement. An except clause may name multiple exceptions as a parenthesized tuple, for example: 
+>>>except(RuntimeError, NameError, ValueError):
+	pass
+• The try … except statement has an optional else clause, which, when present, must follow all except clauses. It is useful for code that must be executed if the try clause does not raise an exception.
+• The use of the else clause is better than adding additional code to the try clause because it avoids accidentally catching an exception that wasn’t raised by the code being protected by the try … except statement. 
+>>> try:
+	n = 1/0
+except ZeroDivisionError:
+	print(ZeroDivisionError)
+else:
+	print('The div:{0} object is of {1}'.format(
+		div, type(div)))
+
+<class 'ZeroDivisionError'>
+
+>>> try:
+	n = 1
+except ZeroDivisionError:
+	print(ZeroDivisionError)
+else:
+	print('The div:{0} object is of {1}'.format(
+		div, type(div)))
+
+The div:1 object is of <class 'int'> 
+
+"""We already have declared B, C and D derived classes, these are now
+    put in a list and accessed through for loop iteration variable cls.
+    A class which follows except clause instead of any predefined exception
+    will be compatible as an exception only if it's the same class cls has
+    or derived from it.
+    In the first iteration, cls has class B, thus when raise cls() raises
+    exception, it has to be handled by B or it's base class, i.e, Exception
+    class. Similarly, in the second iteration, cls has class C, so it has
+    to be handled by either class C itself or it's base class B. In the third
+    iteration, when cls has class D, object of D, it has to be handled by
+    either same class D or it's base class C.
+    If we change the order of except clause:
+    1. first iteration- cls has B, handler is B or Exception whichever falls
+    earlier.
+    2. second iteration- cls has C, handler is B which is C's base class and
+    is executed in the first, as it appears the first.
+    3. third iteration- cls has D, handler is B which is C's base class,
+    which again is D's base class, as B handler appears before C or D handler
+    One can think of it as, D's base class C, and C's base class B, thus
+    D can access any of the instances of class B and C both thus indirectly
+    inherits class B too. Eventually, we can say B is base class to both
+    C and D. The last except clause, class B, may be omitted and to be used
+    cautiously because it is a derived class to Exception class thus could
+    change objects or errors in BASE Class.
+    NOTE- In Java, exceptions are handled by base class if not by the derived
+    class or ultimately by the main method."""
+
+class B(Exception):
+    """B is a derived class, inheriting Exception class"""
+    pass
+class C(B):
+    """C is inheriting B, another derived class"""
+    pass
+class D(C):
+    """D is inheriting C, another derived class"""
+    pass
+for cls in [B, C, D]:
+    try:
+        raise cls()
+    except D:
+        print("D")
+    except C:
+        print("C")
+    except B:
+        print("B")
+Note that if the except clauses were reversed (with except B ﬁrst), it would have printed B, B, B — the ﬁrst matching except clause is triggered. 
+The last except clause may omit the exception name(s), to serve as a wildcard. Use this with extreme caution, since it is easy to mask a real programming error in this way! It can also be used to print an error message and then re-raise the exception (allowing a caller to handle the exception as well): 
+import sys
+try:
+    f = open('myfile.txt') 
+    s = f.readline() 
+    i = int(s.strip()) 
+except OSError as err: 
+    print("OS error: {0}".format(err)) 
+except ValueError: 
+    print("Could not convert data to an integer.") 
+except: 
+    print("Unexpected error:", sys.exc_info()[0]) 
+    raise
+The above code will raise a ValueError as depicted below, it is written as a script to show how any predefined error can be changed through the last except clause accessing sys.exc_info()[0] zeroth argument, which is type. Also, it raises another exception through raise keyword. 
+In the Interpreter:
+>>> import sys
+>>> f = open('file1.txt')
+>>> s = f.readline()
+>>> i = int(s.strip())
+Traceback (most recent call last):
+  File "<pyshell#32>", line 1, in <module>
+    i = int(s.strip())
+ValueError: invalid literal for int() with base 10: 'traditional chinese encoding'
+>>> f.encoding
+'cp1252'
+>>> # codec= 'cp1252' is encoding, language is 'Western Europe'
+see https://docs.python.org/2.4/lib/standard-encodings.html
+>>> f.encoding = 'ascii'
+Traceback (most recent call last):
+  File "<pyshell#34>", line 1, in <module>
+    f.encoding = 'ascii'
+AttributeError: readonly attribute
+Can't be changed or altered because encoding here is a readonly attribute of f object.
+>>> print(sys.exc_info()[0])
+None
+>>> sys.exc_info()
+(None, None, None)
+>>> # sys.exc_info(type, value, traceback) as positional arguments giving mentioned parameters as function annotations.
+When an exception occurs, it may have an associated value, also known as the exception’s argument. The presence and type of the argument depend on the exception type. 
+The except clause may specify a variable after the exception name(as alias). The variable(described as alias) is bound to an exception instance with the arguments stored in instance.args(here, the arguments mentioned in try block or the detail of error message predefined as argument for some exceptions as ValueError and NameError, the name 'n' not defined part). For convenience, the exception instance(created as alias here in example) deﬁnes __str__() so the arguments can be printed directly without having to reference .args. One may also instantiate an exception(explicitly instantiating exception in try block passing some arguments as shown in example) ﬁrst before raising it and add any attributes to it as desired.
+>>> try:
+	raise Exception("arg0", "arg1")
+except Exception as inst_ex:
+	print(type(inst_ex))
+	# the exception instance is inst_ex
+	print(inst_ex.args)
+	# displays arguments stored in .args of the instance
+	print(inst_ex)
+	# displays the arguments directly through __str__
+	# may be overridden in Exception subclasses
+	x, y =  inst_ex.args
+	# unpacking a inst_ex.args tuple
+	print("x:{0}, y:{1}".format(x, y))
+
+	
+<class 'Exception'>
+('arg0', 'arg1')
+('arg0', 'arg1')
+x:arg0, y:arg1
+>>> while True:
+	try:
+		n = int(input("Enter number:"))
+		raise Exception('check', 'args')
+		break
+	except Exception as inst_ex:
+		print("Exception: {0}".format(inst_ex))
+		print(inst_ex)
+
+		
+Enter number:5
+Exception: ('check', 'args')
+('check', 'args')
+Enter number:d
+Exception: invalid literal for int() with base 10: 'd'
+invalid literal for int() with base 10: 'd'
+Enter number:
+Traceback (most recent call last):
+  File "<pyshell#62>", line 3, in <module>
+    n = int(input("Enter number:"))
+KeyboardInterrupt
+>>> # the same continues repeatedly bcoz first exception is raised then we are
+>>> # voluntarily raising another exception to test for arguments in exceptions
+>>> # Also, inst_ex displays the description of error message above for the
+>>> # first exception raised due to ValueError, type mismatch.
+NOTE- invalid literal for int() with base 10: 'd' is the argument predefined as detail for error message which we accessed by print(inst_ex), uses __str__ to directly access .args than mentioning it explicitly as print(inst_ex.args).
+If an exception has arguments, they are printed as the last part (‘detail’) of the message for unhandled exceptions. 
+
+Exception handlers don’t just handle exceptions if they occur immediately in the try clause, but also if they occur inside functions that are called (even indirectly) in the try clause. For example: 
+>>> def this_fails(): 
+... x = 1/0 
+... 
+>>> try: 
+... this_fails() 
+... except ZeroDivisionError as err: 
+... print('Handling run-time error:', err) 
+... Handling run-time error: division by zero
+
+
+RAISING EXCEPTIONS:
+The raise statement allows the programmer to force a speciﬁed exception to occur. For example: 
+>>> raise NameError('HiThere') 
+Traceback (most recent call last): 
+File "<stdin>", line 1, in <module> 
+NameError: HiThere 
+The sole argument to raise indicates the exception to be raised. This must be either an exception instance or an exception class (a class that derives from Exception). If an exception class is passed, it will be implicitly instantiated by calling its constructor with no arguments: 
+raise ValueError 
+# shorthand for 'raise ValueError()' 
+If you need to determine whether an exception was raised but don’t intend to handle it, a simpler form of the raise statement allows you to re-raise the exception: 
+Ensure you re-raise the exception in except clause so that you need not handle it because it's already in handler and from there it would go to Exceptions class as unhandled exception raising the exception, without you handling it.
+>>> try: 
+... raise NameError('HiThere') 
+... except NameError:
+... print('An exception flew by!') 
+... raise 
+... 
+An exception flew by! 
+Traceback (most recent call last): 
+File "<stdin>", line 2, in <module> 
+NameError: HiThere
+

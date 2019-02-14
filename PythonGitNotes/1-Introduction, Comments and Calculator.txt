@@ -1,0 +1,63 @@
+PYTHON-
+
+Python is simpler to use, available on Windows, Mac OS X, and Unix operating systems, and will help you get the job done (more) quickly.
+Python is simple to use, but it is a real programming language, offering much more structure and support for large programs than shell scripts or batch files can offer. On the other hand, Python also offers much more error checking than C, and, being a very-high-level language, it has high-level data types built in, such as flexible arrays and dictionaries.
+Programs written in Python are typically much shorter than equivalent C, C++, or Java programs, for several reasons:
+
+the high-level data types allow you to express complex operations in a single statement;
+statement grouping is done by indentation instead of beginning and ending brackets;
+no variable or argument declarations are necessary.
+By the way, the language is named after the BBC show “Monty Python’s Flying Circus” and has nothing to do with reptiles. Making references to Monty Python skits in documentation is not only allowed, it is encouraged!
+Windows:There are many interpreters available freely to run Python scripts like IDLE ( Integrated Development Environment ) which is installed when you install the python software from http://python.org/
+
+Linux:For Linux, Python comes bundled with the linux.
+
+On Windows machines, the Python installation is usually placed in C:\Python36, though you can change this when you’re running the installer. To add this directory to your path, you can type the following command into the command prompt in a DOS box:
+
+
+set path=%path%;C:\python36
+>>> is called as Primary Prompt which means you have to write commands or code.
+... shows continuation, Secondary Prompt, used for writing multi-line codes on the interpreter.
+Lines that do not begin with prompt are output from the Interpreter.
+
+Comments in Python start with the hash character, #, and extend to the end of the physical line. A comment may appear at the start of a line or following whitespace or code, but not within a string literal. A hash character within a string literal is just a hash character. Since comments are to clarify code and are not interpreted by Python, they may be omitted when typing in examples.
+Mathematical Usage
+>>> 17 / 3  # classic division returns a float
+5.666666666666667
+>>>
+>>> 17 // 3  # floor division discards the fractional part
+5
+>>> 17 % 3  # the % operator returns the remainder of the division
+2
+>>> 5 * 3 + 2  # result * divisor + remainder, result in this context is quotient
+17
+>>> 5 ** 2  # 5 squared, double * raises the power
+25
+>>> 2 ** 7  # 7 raised to the power of 2
+128
+>>> n  # try to access an undefined variable
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'n' is not defined
+There is full support for floating point; operators with mixed type operands convert the integer operand to floating point:
+implicit conversion done by the compiler, in background.
+>>> 4 * 3.75 - 1
+14.0
+
+In interactive mode, the last printed expression is assigned to the variable _. This means that when you are using Python as a desk calculator, it is somewhat easier to continue calculations, for example:
+
+>>> a=35 >>> b=33 >>> a+b 68 >>> b+ SyntaxError: invalid syntax >>> b+_ 101 >>> a+(a+b)+_ 204 
+
+or
+another example:
+>>> tax = 12.5 / 100
+>>> price = 100.50
+>>> price * tax
+12.5625
+>>> price + _
+113.0625
+>>> round(_, 2)
+113.06
+This variable should be treated as read-only by the user. Don’t explicitly assign a value to it — you would create an independent local variable with the same name masking the built-in variable with its magic behavior.
+
+In addition to int and float, Python supports other types of numbers, such as Decimal and Fraction. Python also has built-in support for complex numbers, and uses the j or J suffix to indicate the imaginary part (e.g. 3+5j).

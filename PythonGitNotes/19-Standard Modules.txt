@@ -1,0 +1,28 @@
+﻿Refer 6.2 Standard Modules of Python Documentation
+
+STANDARD MODULES:
+Python comes with a library of standard modules, described in a separate document, the Python Library Reference (“Library Reference” hereafter). 
+Some modules are built into the interpreter as:
+1. these provide access to operations that are not part of the core of the language but are nevertheless built in, (not used in Python language but still are built-in)
+2. they are built in either for efficiency or to provide access to operating system primitives such as system calls. 
+
+NOTE - The set of such modules is a conﬁguration option which also depends on the underlying platform. For example, the winreg module is only provided on Windows systems. 
+One particular module deserves some attention: sys, which is built into every Python interpreter. The variables sys.ps1 and sys.ps2 deﬁne the strings used as primary and secondary prompts: 
+>>>import sys
+>>> sys.getwindowsversion()
+				    
+sys.getwindowsversion(major=10, minor=0, build=17134, platform=2, service_pack='')
+# returns current windows version as a tuple.
+>>> import sys 
+>>> sys.ps1 
+'>>> ' 
+>>> sys.ps2 
+'... '
+>>> sys.ps1 = 'C> ' 
+C> print('Yuck!') 
+Yuck! 
+C> 
+These two variables are only deﬁned if the interpreter is in interactive mode. 
+The variable sys.path is a list of strings that determines the interpreter’s search path for modules. It is initialized to a default path taken from the environment variable PYTHONPATH, or from a built-in default if PYTHONPATH is not set. You can modify it using standard list operations: 
+>>> import sys 
+>>> sys.path.append('/ufs/guido/lib/python')

@@ -1,0 +1,76 @@
+﻿Refer to 1-Namespaces.py, 2-Namespaces.py, 3-Namespaces.py
+https://www.programiz.com/python-programming/namespace
+
+PYTHON SCOPES AND NAMESPACES :
+
+Namespace - is a mapping from names (identifiers, names associated with objects) to objects (int, str, list, literal's data-type).
+Most namespaces are currently implemented as Python dictionaries (key is name and value is corresponding object), but that's it being stored/implemented as dictionary is) normally not noticeable in any way (except for performance), and it may change in the future (i.e, namespaces implemented as dictionary could be changed to some other data type for good performance).
+Examples of Namespaces are:
+1. the set of built-in names (containing functions such as abs(), id(), print(), and built-in exception names) are present to us in the Python Interpreter  because when we start the interpreter, a namespace is created containing all the built-in names and it (built-in names) exists until we exit it (the interpreter).
+2. the global names in a module form a namespace as every module creates its own global namespace (restricted to itself containing all the names within the scope of that particular module).
+3. the local names in a function invocation (on function call) form another namespace similar to local table when storing the names, objects in it determining the scope. These are called local namespaces. The local namespace for a function is created when the function is called, and deleted when the function returns or raises an exception that is not handled within the function. (Actually, forgetting would be a better way to describe what actually happens.) Of course, recursive invocations each have their own local namespace (recursive namespace may be). Similar happens with class.
+4. set of attributes of an object also form a namespace.
+5. important thing, no relation between names in different namespaces similar to functions, attributes of a module. In other words, names in different namespaces seem similar to attributes of same name defined in two different modules that we access through their respective module names. Briefly, the different namespaces are isolated, thus, the same name that may exist in different modules do not collide.
+https://www.programiz.com/python-programming/namespace
+Names: Identifiers, names associated with Object's data type, refer to 1- Namespaces.py
+In simple terms, namespaces are collection of names. A namespace can be imagined to mapping of every name defined by user to the corresponding object (int, str, list etc data type).
+We have already read about global symbol table->local symbol table earlier, similar to it there are built-in namespaces->modules: global namespace->functions: local namespace.
+Namespaces creation, their lifetimes:
+ Created at different moments, have different lifetimes.
+1. Namespace containing built-in names are created when we start Python Interpreter, exists or lives until we quit/exit this Interpreter or never deleted.
+2. Global Namespace for module is created when module definition is read in; may be when we import module or when we execute it into Interpreter through script. At this point, we can say that when defined module is considered a part of __main__ module. The built-in names also live in a module as builtins. They exist until we exit Interpreter.
+Scope: textual region of a Python program where a namespace is directly accessible. "Directly accessible” here means that an unqualiﬁed reference to a name attempts to ﬁnd the name in the namespace. Unqualified reference means without any prefix. Thus, in simple terms it conveys the name could be searched or found in a namespace without any prefix, without being accessed as attribute (without dot following any prefix name). Scopes are determined statically (manually while programming) but are used (mostly) dynamically. 
+https://www.programiz.com/python-programming/namespace
+At any time during execution, there are atleast three nested scopes whose namespaces are directly accessible, which are directly accessible within their scopes;
+Types of scopes:
+1. the innermost scope, searched first (local symbol tables, nested function's local namespace).
+2. the scopes of any enclosing functions, searched with nearest enclosing scope containing non-local, but also non-global names (enclosing functions local namespace)
+3. Module's global namespace (global symbol table).
+4. Outermost scope in the namespace containing built-in names.
+If a name is declared global, then  all references and assignments go directly to the middle scope containing the module’s global names. To rebind variables found outside of the innermost scope, the nonlocal statement can be used; if not declared nonlocal, those variables are read-only (an attempt to write to such a variable will simply create a new local variable in the innermost scope, leaving the identically named outer variable unchanged). 
+>>> def outer():
+	a = 4
+	def inner():
+		nonlocal a
+		a = 5
+		print('Nonlocal a: ',a)
+	inner()
+	print('Outer() scope var a: ', a)
+
+	
+>>> outer()
+Nonlocal a:  5
+Outer() scope var a:  5
+>>> # nonlocal is a keyword referencing objects of enclosing function from
+>>> # innermost function.
+Local scope references the local names of the (textually) current function. In other words, in local namespace we have variables, objects and can be referenced textually (as they reside in same namespace) within current function. Outside of functions, the local scope can reference the same namespace as the global scope; module's namespace. Class definitions place yet another namespace in the local scope.
+Scopes are determined textually, where we need no dot operator following any module or function  name to access any variable, object as attributes, these are directly accessible within its scope.
+The global scope of a function deﬁned in a module is that module’s namespace, no matter from where or by what alias the function is called. On the other hand, the actual search for names is done dynamically, at run time — however, the language deﬁnition is evolving towards static name resolution, at “compile” time, so don’t rely on dynamic name resolution! (In fact, local variables are already determined statically.) Static name resolution is recommended because it catches at compile time, use of variables that are not in scope, preventing programmer errors. Languages with dynamic scope resolution sacrifice this safety for more flexibility; they can typically set, get variables in the same scope at runtime. Dynamic name resolution is discouraged by Python community. This feature may also be removed in future versions of Python.
+>>> a
+3
+>>> type(locals())
+<class 'dict'>
+>>> locals()
+{'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <class '_frozen_importlib.BuiltinImporter'>, '__spec__': None, '__annotations__': {}, '__builtins__': <module 'builtins' (built-in)>, 'a': 3}
+>>> type(global)
+SyntaxError: invalid syntax
+>>> global()
+SyntaxError: invalid syntax
+>>> type(global a)
+SyntaxError: invalid syntax
+>>> noun = 'troubles'
+>>> noun2 = 'hound'
+>>> print("{a}, {noun} and {noun2} dynamic name resolution".format(**locals()))
+3, troubles and hound dynamic name resolution
+>>> # unpacking of dictionary, locals() return dictionary, is of <class 'dict'>
+>>> # this occurs dynamically, provides value to keys a, noun, noun2 dynamically
+
+The global statement can be used to indicate that particular variables live in the global scope and should be rebound there; the nonlocal statement indicates that particular variables live in an enclosing scope and should be rebound there.
+A special quirk of Python is that – if no global statement is in eﬀect – assignments to names always go into the innermost scope. 
+Assignments do not copy data — they just bind names to objects. The same is true for deletions: the statement del x removes the binding of x from the namespace referenced by the local scope. In fact, all operations that introduce new names use the local scope: in particular, import statements and function deﬁnitions bind the module or function name in the local scope.  
+Attributes: any name following a dot. Ex- modname.funcname, here modname is a name of any module and funcname is the function present in it. If you noticed we used a dot to access this function following the module name, thus, funcname is an attribute of modname module object. A module has its global namespace containing global names, functions within it, thereafter, the functions within contain their own attributes in local namespace.
+Attributes may be:
+1. read-only
+2. writable: assignment to attributes is possible.
+Ex- modname.attrib = 'update'
+writable attributes may also be deleted through del modname.attrib, this would remove the attribute attrib from modname module object.

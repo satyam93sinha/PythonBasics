@@ -1,0 +1,155 @@
+﻿Refer to 1-Iterators.py, 2-Iterators.py, 3-Iterators.py
+https://www.programiz.com/python-programming/iterator
+
+ITERATORS
+
+What are iterators?
+Iterators are objects that can be iterated upon. An object that returns one element of the iterable object at a time. Now the question may arise as what are these iterables, thus, iterables  are those objects where we can get an iterator from them. This iterator which we get can only with the help of next() method returns next element/simply elements of iterable object. Thus, Python iterator object, technically, must implement two special methods, __iter__() and __next__() methods, collectively called as iterator protocol. Example of iterable objects are: list, tuple, string, dictionary. The iter() is built-in method synonym/analogous to __iter__() method  which returns iterator from the iterable object. Also, next() built-in method is analogous/synonym to __next__() method.
+
+>>> next([2,3,4])
+Traceback (most recent call last):
+  File "<pyshell#3>", line 1, in <module>
+    next([2,3,4])
+TypeError: 'list' object is not an iterator
+
+NOTE: There's difference between iterator and iterable. Iterable is an object which generates iterator through iter() method. Thus, next() works on iterator and not on iterable object.
+
+>>> list_next=iter([2,3,4])
+>>> next(list_next)
+2
+>>> next(list_next)
+3
+>>> next(list_next)
+4
+>>> next(list_next)
+Traceback (most recent call last):
+  File "<pyshell#4>", line 1, in <module>
+    next(list_next)
+StopIteration
+
+When the elements in iterable object get exhausted, StopIteration exception is raised.
+The automatic way of calling the iterator and then the next elements through iterator protocols is using for loop.
+
+>>> for _ in [2,3,4]:
+	print(_)
+
+	
+2
+3
+4
+
+We used single underscore because in this case, the indexing doesn't matter.
+
+>>> # how does for loop actually works?
+>>> """Implementation of "For" Loop"""
+'Implementation of "For" Loop'
+>>> iterator_obj = iter([2,3,4])
+>>> while True:
+	try:
+		element = next(iterable)
+		print(element)
+		# anything within for loop, here printing.
+	except StopIteration:
+		break
+	# break because for loop simply breaks when exhausted.
+
+	
+2
+3
+4
+We can use __iter__() and __next__() method analogous to iter() and next() built-in methods.
+ 
+>>> iterator_obj = [2,3,4].__iter__()
+>>> while True:
+	try:
+		element = iterable.__next__()
+		print(element)
+		# anything within for loop, here printing.
+	except StopIteration:
+		break
+	# break because for loop simply breaks when exhausted.
+
+	
+2
+3
+4
+
+Explanation:
+for loop creates an iterator object, named iterator_obj here by calling iter() on the iterable object, i.e, [2,3,4] list. We can say that a for loop  is nothing but an infinite while loop. Inside the loop, it calls next() to get the next element and executes the body of the for loop with this value. After all the items exhaust, StopIteration is raised which is internally caught and the loop ends.
+Note that any other kind of exception will pass through.
+
+Points to be remembered when building own Iterators:
+1. Iterator protocols, __iter__() and __next__() must be collectively used  else there will be an error. If only __iter__() is used, there will be no method to iterate on iterator object provided by __iter__() else if __next__()  is used there won't be an iterator object to iterate upon. Thus, both are collectively needed.
+2. On reaching the end in subsequent calls, StopIteration exception must be raised.
+
+>>> class PowNum:
+	def __init__(self, num, min=0, max=0):
+		self.min = min
+		self.max = max
+		self.num = num
+	def __iter__(self):
+		# some initialization can be done here
+		return self
+	def __next__(self):
+		if self.min <= self.max:
+			result = self.num ** self.min
+			self.min += 1
+			return result
+		else:
+			raise StopIteration
+
+		
+>>> for i in PowNum(5, 1, 3):
+	print(p)
+
+	
+None
+None
+None
+>>> pn = PowNum(3, 2, 5)
+>>> p = iter(pn)
+>>> next(p)
+9
+>>> next(p)
+27
+>>> next(p)
+81
+>>> next(p)
+243
+>>> next(p)
+Traceback (most recent call last):
+  File "<pyshell#69>", line 1, in <module>
+    next(p)
+  File "<pyshell#60>", line 15, in __next__
+    raise StopIteration
+StopIteration
+>>> # there's no p storing elements in for loop which is why it returns None.
+>>> for i in PowNum(5, 1, 3):
+	print(i)
+
+	
+5
+25
+125
+
+Infinite Iterator:
+
+>>> int()
+0
+>>> inf = iter(int, 1)
+>>> next(inf)
+0
+>>> next(inf)
+0
+>>> next(inf)
+0
+>>> next(inf)
+0
+>>> next(inf)
+0
+
+# We can see that the int() function always returns 0. So passing it as iter(int,1) will return an iterator that calls int() until the returned value equals 1. This never happens and we get an infinite iterator.
+
+The advantage of using iterators is that they save resources. Like shown above, we could get all the odd numbers without storing the entire number system in memory. We can have infinite items (theoretically) in finite memory.
+
+Deﬁne an __iter__() method which returns an object with a __next__() method. If the class deﬁnes __next__(), then __iter__() can just return self. Thus, we can infer that an __iter__() returns an object with a __next__() and a class defining iterator protocols could allow __iter__() to simply return self.

@@ -1,0 +1,47 @@
+﻿Refer https://docs.python.org/3/tutorial/modules.html
+
+EXECUTING MODULES AS SCRIPTS:
+A program is written as a script, can be used as a module when imported. When we run a python module with python Fibonacci.py <arguments>" in linux or 
+"Fibonacci.py <arguments>" in command prompt in Windows, the code in the module will be executed, just as if you imported it, but with the __name__ set to "__main__". While executing a program through script the functions are called within the program/module, thus setting __name__ to __main__. Here, through the statement "module will be executed, just as if you imported a module" means that while code being executed through command prompt rather than importing module, it checks the below lines of "if condition clause" to import sys and then perform module execution in similar way as we would have done:
+>>>import Fibonacci
+>>>Fibonacci.fib(30)
+ That means that by adding this code at the end of your module: 
+if __name__ == "__main__":
+    import sys
+    fib(int(sys.argv[1]))
+you can make the ﬁle usable as a script as well as an importable module, because the code that parses the command line only runs if the module is executed as the “main” ﬁle: 
+This way of execution sets the __name__ to __main__ which lets the code execute as it is being executed through script. We all know that a file is executed at interpreter only if its __name__ set to or is equivalent to "__main__".
+$ python fibo.py 50 
+0 1 1 2 3 5 8 13 21 34 
+If the module is imported, the code is not run because the module's __name__ is neither set nor equivalent to __main__:
+>>> import Fibonacci
+>>>
+This is often used either to provide a convenient user interface to a module, or for testing purposes (running the module as a script executes a test suite).
+
+THE MODULE SEARCH PATH:
+Let us assume a module named Fibonacci is imported, the interpreter, firstly, searches for a built-in module with the module's name, means the interpreter first searches for that module among the built-in modules. When not found, the search is performed for a file named Fibonacci.py in a list of directories given by the variable sys.path.
+sys.path is initialized from these locations:
+1. directory containing the input script(or current directory when no file is specified). In other words, directory containing the current file location.
+2. PYTHONPATH : https://docs.python.org/2/using/cmdline.html 
+Visit this link to understand PYTHONPATH environment variable, it is set for python to search for modules.
+3. installation-dependent default : path we give at the time of installation.
+Python programs can modify sys.path after the initialization as described above. The path/directory containing the script being run is placed at the beginning of the search path, ahead of the standard library path. This means script in directory will be loaded instead of modules of the same name in the library directory. This is an error unless the replacement is intended. I don't see path getting changed or modified to anything in sys.path under Path Browser, this might be happening internally.
+NOTE- On file systems which support symlinks(creates symbolic link to source named link_name, availability  Unix), the directory containing the input script is calculated after the symlink is followed. In other words the directory containing symlink is not added to the module search path.
+os.symlink(source,link_name) is syntax.
+
+https://stackoverflow.com/questions/32877260/privlege-error-trying-to-create-symlink-using-python-on-windows-10
+
+To create a symbolic link, you need to create the process using your unrestricted/elevated access token (i.e. elevated from medium to high integrity level). Do this by right-clicking and selecting "Run as administrator". This elevated token will be inherited by child processes, so it suffices to run your Python script from an elevated command prompt, which you can open via the keyboard shortcut Win+X A. You can verify that the cmd shell is elevated by running whoami /priv and checking for the presence of SeCreateSymbolicLinkPrivilege. Don't be alarmed if the state is disabled. The Windows CreateSymbolicLink function automatically enables this privilege.
+
+That said, since you're creating a directory symbolic link, then perhaps a junction will work just as well. No special privilege is required to create a junction. You can create a junction using cmd's mklink command. For example:
+
+subprocess.check_call('mklink /J "%s" "%s"' % (link, target), shell=True)
+
+"COMPILED" PYTHON FILES:
+To speed up loading modules, Python caches the compiled version of each module in the __pycache__ directory under the name module.version.pyc, where the version encodes the format of the compiled ﬁle; it generally contains the Python version number. 
+For example, in CPython release 3.3 the compiled version of spam.py would be cached as __pycache__/spam.cpython-33.pyc. This naming convention allows compiled modules from different releases and different versions of Python to coexist. Python checks the modiﬁcation date of the source against the compiled version to see if it’s out of date and needs to be recompiled. This is a completely automatic process. Also, the compiled modules are platform-independent, so the same library can be shared among systems with different architectures. Python does not check the cache in two circumstances. First, it always recompiles and does not store the result for the module that’s loaded directly from the command line. Second, it does not check the cache if there is no source module. To support a non-source (compiled only) distribution, the compiled module must be in the source directory, and there must not be a source module. 
+Some tips for experts: 
+• You can use the -O or -OO switches on the Python command to reduce the size of a compiled module. The-O switch removes assert statements, the -OO switch removes both assert statements and __doc__  strings. Since some programs may rely on having these available, you should only use this option if you know what you’re doing. “Optimized” modules have an opt- tag and are usually smaller. Future releases may change the effects of optimization. 
+• A program doesn’t run any faster when it is read from a .pyc ﬁle than when it is read from a .py ﬁle; the only thing that’s faster about .pyc ﬁles is the speed with which they are loaded. 
+• The module compileall can create .pyc ﬁles for all modules in a directory. 
+• There is more detail on this process, including a ﬂow chart of the decisions, in PEP 3147.

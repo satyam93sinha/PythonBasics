@@ -1,0 +1,234 @@
+﻿Refer to Chapter 10 Brief Tour of Standard Library.py
+
+OPERATING SYSTEM INTERFACE:
+
+The os module provides functions to interact with the operating system through Python.
+Remember os is a module and not a package so to import it we need to use import os style than using from os import *. The latter wouldn't hold good because there isn't __init__.py defined with __all__ containing all the functions in a tuple which lets us use the latter style of importing and makes one/combination of modules a package.
+The other reason we are given in documentation is that the latter style of import may keep os.open() from shadowing the built-in open() function which operates much differently. In othere words, using open() file function would be confusing, the interpreter would get confused in os.open() and open() file function. 
+Its apparent that none could memorize every function provided by python, thus, we may use built-in dir(), help() and __doc__ to know the functions.
+
+>>> import os
+>>> os.getcwd()
+'C:\\Users\\Sinha\\AppData\\Local\\Programs\\Python\\Python37-32'
+>>> os.chdir("F://")
+>>> os.getcwd()
+'F:\\'
+>>> print(os.getcwd().__doc__)
+str(object='') -> str
+str(bytes_or_buffer[, encoding[, errors]]) -> str
+
+Create a new string object from the given object. If encoding or
+errors is specified, then the object must expose a data buffer
+that will be decoded using the given encoding and error handler.
+Otherwise, returns the result of object.__str__() (if defined)
+or repr(object).
+encoding defaults to sys.getdefaultencoding().
+errors defaults to 'strict'.
+>>> os.path.join(os.getcwd(), os.system("mkdir today"))
+Traceback (most recent call last):
+  File "<pyshell#7>", line 1, in <module>
+    os.path.join(os.getcwd(), os.system("mkdir today"))
+  File "C:\Users\Sinha\AppData\Local\Programs\Python\Python37-32\lib\ntpath.py", line 115, in join
+    genericpath._check_arg_types('join', path, *paths)
+  File "C:\Users\Sinha\AppData\Local\Programs\Python\Python37-32\lib\genericpath.py", line 149, in _check_arg_types
+    (funcname, s.__class__.__name__)) from None
+TypeError: join() argument must be str or bytes, not 'int'
+>>> os.system("mkdir today")
+1
+>>> os.system("mkdir tomorrow")
+0
+>>> dir(os.system())
+Traceback (most recent call last):
+  File "<pyshell#10>", line 1, in <module>
+    dir(os.system())
+TypeError: system() missing required argument 'command' (pos 1)
+>>> print(os.system.__doc__)
+Execute the command in a subshell.
+>>> # folders named today and tomorrow are created but why does it return
+>>> # 1 in the first, 0 in second is the question.
+>>> os.system("del tomorrow")
+0
+>>> #  deletes directory tomorrow, opens subshell for permission in y/n
+>>> os.system("delete tomorrow")
+1
+>>> # didn't delete it.
+>>> os.system("del tomorrow")
+0
+>>> os.getcwd()
+'F:\\'
+>>> os.system("del tomorrow")
+1
+>>> os.system("del tom")
+0
+>>> os.system("dir")
+0
+>>> os.system("del starpattern.class")
+0
+>>> # deletes only the files, not folders, thus, wasn't able to delete the folder
+>>> # above.
+>>> os.path.join(os.getcwd(), "/today")
+'F:/today'
+>>> os.getcwd()
+'F:\\'
+>>> os.chdir(os.path.join(os.getcwd(), "/today"))
+>>> os.getcwd()
+'F:\\today'
+>>> # use it wisely, permanently deletes file
+
+For daily ﬁle and directory management tasks, the shutil module provides a higher level interface that is easier to use: 
+>>> import shutil
+>>> print(shutil.__doc__)
+Utility functions for copying and archiving files and directory trees.
+
+XXX The functions here don't copy the resource fork or other metadata on Mac.
+
+
+>>> shutil.disk_usage.__doc__
+"Return disk usage statistics about the given path.\n\n        Returned values is a named tuple with attributes 'total', 'used' and\n        'free', which are the amount of total, used and free space, in bytes.\n        "
+>>> shutil.disk_usage
+<function disk_usage at 0x03D41AE0>
+>>> shutil.disk_usage()
+Traceback (most recent call last):
+  File "<pyshell#35>", line 1, in <module>
+    shutil.disk_usage()
+TypeError: disk_usage() missing 1 required positional argument: 'path'
+>>> shutil.disk_usage(os.getcwd())
+usage(total=96635711488, used=27662004224, free=68973707264)
+>>> # returns usage in bytes
+>>> os.getcwd()
+'F:\\today'
+>>> shutil.copyfile("newText.txt", "secondText.txt")
+'secondText.txt'
+>>> # if there's no already created empty file, it creates one to copy.
+>>> with open("secondText.txt", 'r') as f:
+	f.readlines()
+
+	
+['first new text\n', 'testing shutil.copy in python, module shutil']
+>>> # proves copying of file.
+>>> os.chdir("F://")
+>>> shutil.copyfile("today", "tomorrow")
+Traceback (most recent call last):
+  File "<pyshell#48>", line 1, in <module>
+    shutil.copyfile("today", "tomorrow")
+  File "C:\Users\Sinha\AppData\Local\Programs\Python\Python37-32\lib\shutil.py", line 120, in copyfile
+    with open(src, 'rb') as fsrc:
+PermissionError: [Errno 13] Permission denied: 'today'
+>>> # this module, copyfile attribute can only be used to copy files, not folders
+
+
+FILE WILDCARDS:
+
+glob module provides functions for making file lists from directory wildcard searches, it searches the directory to return tuple of given extensions:
+>>> import glob
+>>> glob.glob("F://today", "*.txt")
+Traceback (most recent call last):
+  File "<pyshell#51>", line 1, in <module>
+    glob.glob("F://today", "*.txt")
+TypeError: glob() takes 1 positional argument but 2 were given
+>>> os.chdir("F://today")
+>>> os.getcwd()
+'F:\\today'
+>>> glob.glob("*.txt")
+['newText.txt', 'secondText.txt']
+>>> # returns the file names with the mentioned extensions in list.
+>>> print(glob.__doc__)
+Filename globbing utility.
+>>> glob.__package__
+''
+>>> glob.magic_check.__doc__
+'Compiled regular expression object.'
+>>> glob.has_magic.__doc__
+>>> dir(glob.has_magic)
+['__annotations__', '__call__', '__class__', '__closure__', '__code__', '__defaults__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__get__', '__getattribute__', '__globals__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__kwdefaults__', '__le__', '__lt__', '__module__', '__name__', '__ne__', '__new__', '__qualname__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__']
+>>> print(glob.has_magic.__doc__)
+None
+>>> print(glob.iglob.__doc__)
+Return an iterator which yields the paths matching a pathname pattern.
+
+    The pattern may contain simple shell-style wildcards a la
+    fnmatch. However, unlike fnmatch, filenames starting with a
+    dot are special cases that are not matched by '*' and '?'
+    patterns.
+
+    If recursive is true, the pattern '**' will match any files and
+    zero or more directories and subdirectories.
+    
+>>> os.getcwd()
+'F:\\today'
+>>> n = glob.iglob("**")
+>>> next(n)
+'newText.txt'
+>>> for i in n:
+	print(i)
+
+	
+secondText.txt
+>>> # Thus, iglob is a generator returning patterned filenames
+>>> n = glob.iglob(".py")
+>>> try:
+	for i in n:
+		print(i)
+except Exception as e:
+	print(e)
+
+	
+>>> def check():
+	try:
+		for i in n:
+			print(i)
+	except Exception as e:
+		print(e)
+
+		
+>>> check()
+>>> 
+>>> n = glob.iglob(".py")
+>>> next(n)
+Traceback (most recent call last):
+  File "<pyshell#90>", line 1, in <module>
+    next(n)
+StopIteration
+>>> def check():
+	try:
+		for i in n:
+			print(i)
+	except StopIteration:
+		print("StopIteration")
+
+		
+>>> check()
+>>> n = glob.iglob(".py")
+>>> check()
+>>> for i in n:
+	print(i)
+	
+>>> # stop iteration isn't raised by for loop, for simply breaks encountering it
+
+>>> import sys
+>>> print(sys.argv)
+['']
+>>> print(sys.argv.__doc__)
+Built-in mutable sequence.
+
+If no argument is given, the constructor creates a new empty list.
+The argument must be an iterable if specified.
+>>> print(sys.argv([1,2,3]))
+Traceback (most recent call last):
+  File "<pyshell#103>", line 1, in <module>
+    print(sys.argv([1,2,3]))
+TypeError: 'list' object is not callable
+
+STRING PATTERN MATCHING:
+
+The re module provides regular expression tools for advanced string processing. For complex matching and manipulation, regular expressions oﬀer succinct, optimized solutions: 
+>>> import re
+>>> re.fullmatch(r'\aab[a-z]*', 'aab go to jaab without traab')
+>>> re.findall(r'\aab[a-z]*', 'aab go to jaab without traab')
+[]
+>>> re.findall(r'\baab[a-z]*', 'aab go to jaab without traab')
+['aab']
+>>> re.fullmatch(r'\baab[a-z]*', 'aab go to jaab without traab')
+>>> re.fullmatch(r'\baab[a-z]*', 'aab')
+<re.Match object; span=(0, 3), match='aab'>
+>>> 

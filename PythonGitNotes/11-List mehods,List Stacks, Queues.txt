@@ -1,0 +1,89 @@
+﻿
+Refer to More On Lists Shell.py, Queue.py file for examples.
+MORE ON LISTS-
+list.append(x) : Equivalent to a[len(a):]=[x]
+
+>>> # secondary prompt is seen here in command prompt for python
+... # while using comments, command prompt here is simply idle with no UI
+...
+>>> a[len(a):] = [9]
+>>> a
+[1, 3, 4, 6, 8, 9]
+>>> a[len(a):]
+[]
+# slicing is done from length of list a, i.e, last element, returns a shallow copy and further adds new element to the list. We see in above example that 
+"a[len(a):]" returns an empty list, thus when equating/ technically, assigning [9] to that empty list increments the list index by 1 adding 9 to the end of the list
+a. Therefore, when we fetch a by typing a at the primary prompt and pressing
+enter, we get the same list with 9 appended(added to its end incremented index).
+
+list.extend(iterable) :
+extends list by adding all the elements from the iterable. Equivalent to a[len(a):]=iterable
+>>> a=[2,3,4]
+>>> a.extend(5,6)
+Traceback (most recent call last):
+  File "<pyshell#2>", line 1, in <module>
+    a.extend(5,6)
+
+TypeError: extend() takes exactly one argument (2 given)
+>>> a.extend([5,6])
+>>> a
+[2, 3, 4, 5, 6]
+>>> a.extend((5,6))
+>>> a
+[2, 3, 4, 5, 6, 5, 6]
+>>> a[len(a):]=['e','f']
+>>> a
+[2, 3, 4, 5, 6, 5, 6, 'e', 'f']
+
+list.insert(index, object) :
+Equivalent to list.insert(len(a),object) Also equivalent to a.append(x) adds an element to the last of the list.
+
+list.remove(object) :
+Remove the ﬁrst item from the list whose value is x. It is a ValueError if there is no such item. Asper me, it searches for (Object) in list, if not found, returns 
+ValueError: list.remove(x): x not in list.
+
+list.pop([i]) Removes the item at the given position in the list, and returns it. If no index is speciﬁed, a.pop() removes and returns the last item in the list. (The square brackets around the i in the method signature denote that the parameter is optional, not that you should type square brackets at that position. You will see this notation frequently in the Python Library Reference.) 
+
+list.clear() Remove all items from the list. Equivalent to del a[:].
+ 
+list.index(x[, start[, end]]) :
+Obsolete, rather use list.index(x, start index) :
+searches for specific value in sub-sequence of list, the start(and end of list) is described as shallow copy of that particular list. When that value x is found, index is returned. The returned index is computed relative to the beginning of the full sequence rather than the start argument or sub-sequence start for the shallow copy.
+Algo:
+1. take a list as input from user
+list_1 = list(input("Enter List"))
+2. take input for value to be searched in list from user
+val = evaluate(input("Enter value"))
+3. take start index as input from user
+start_index = int(input("Start index"))
+4. iterate over list through its length, so that we can easily get index
+5. Assign that shallow copy list to another list as
+list_shallow = list_1[start_index:]
+for i in range(len(list_shallow)):
+6. check if value is found
+if len(i) == val:
+7. will search for the same value in original full sequence of list_1
+for i in range(len(list_1)):
+8. check if value is found
+if len(i) == val:
+9. return index
+return i
+
+MISSING SHALLOW COPY PART??
+TRY IT AGAIN, THE ALGO.
+
+list.count(x) : Returns the number of times x appears in list.
+
+list.sort(key=None,reverse=False) :
+Reverse by default is false which signifies sorting will be done in ascending order, when true will return sorting in descending order.
+You might have noticed that methods like insert, remove or sort that only modify the list have no return value printed – they return the default None.1 This is a design principle for all mutable data structures in Python.
+Other languages may return the mutated object, which allows method chaining, such as 
+d->insert("a")->remove("b")->sort();.
+
+USING LISTS AS STACKS :(LIFO)
+The list methods make it very easy to use a list as a stack, where the last element added is the ﬁrst element retrieved (“last-in, ﬁrst-out”). To add an item to the top of the stack, use append(). To retrieve an item from the top of the stack, use pop() without an explicit index.
+
+USING LISTS AS QUEUES :(FIFO)
+First element is added and first is retrieved. Lists are not efficient for this purpose. While appends and pops from the end of list are fast, doing inserts and pops from the beginning of a list is slow(because all the other elements have to be shifted by one).
+To implement a queue, use collections.deque, it was designed to have fast appends and pops from both ends.
+In queue, insertion occurs from the back/end and deletion or popping up of elements from rear/front end.

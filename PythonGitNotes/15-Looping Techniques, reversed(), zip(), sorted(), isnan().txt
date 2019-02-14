@@ -1,0 +1,189 @@
+﻿
+
+LOOPING TECHNIQUES-
+We can retrieve keys and value pair using items() method.
+>>> for k, v in squares.items():
+	print(k,v)
+
+	
+0 0
+1 1
+2 4
+3 9
+4 16
+5 25
+6 36
+7 49
+8 64
+9 81
+
+>>> dict_list=[]
+>>> for k, v in squares.items():
+	dict_list_append = []
+	dict_list_append.extend([k,v])
+	dict_list.append(dict_list_append)
+
+	
+>>> dict_list
+[[0, 0], [1, 1], [2, 4], [3, 9], [4, 16], [5, 25], [6, 36], [7, 49], [8, 64], [9, 81]]
+
+>>> for i, v in enumerate(squares):
+	print(i, v)
+
+	
+0 0
+1 1
+2 2
+3 3
+4 4
+5 5
+6 6
+7 7
+8 8
+9 9
+>>> for k in enumerate(dict_cube, start = 9):
+	print(k)
+
+	
+(9, 0)
+(10, 1)
+(11, 2)
+(12, 3)
+(13, 4)
+(14, 5)
+(15, 6)
+(16, 7)
+# The enumerate object yields pairs containing a count (from start, which
+ |  defaults to zero) and a value yielded by the iterable argument.
+
+zip() :
+To loop over two or more sequences at the same time, the entries can be paired with the zip() function.
+>>> questions = ['name', 'quest','favourite color']
+>>> answers = ['Bob', 'Learning new Languages', 'blue']
+>>> for q,a in zip(questions,answers):
+	print("What's your {0}?",sep='
+	      
+SyntaxError: EOL while scanning string literal
+>>> for q,a in zip(questions,answers):
+	print("What's your {0}? It's {1}".format(q,a))
+
+	      
+What's your name? It's Bob
+What's your quest? It's Learning new Languages
+What's your favourite color? It's blue
+
+>>> type(zip(questions))
+	      
+<class 'zip'>
+>>> zip(questions)
+	      
+<zip object at 0x042C9030>
+>>> zip_questions = zip(questions)
+	      
+>>> for i in zip_questions:
+	      print(i)
+
+	      
+('name',)
+('quest',)
+('favourite color',)
+>>> # iterates over list or any other iterable object, stores it's elements in tuple, without iteration over zip object it returns the location where those elements are stored. On iterating over zip object, we get those elements printed as here in zip_questions.
+
+reversed() :
+CLASS 'LIST_REVERSEITERATOR'. Reverses the iterable object and returns the list's location, if stored in some other object, when that object is iterated returns the elements. EX= rev_questions in code mentioned below.
+>>> reversed(questions)
+	      
+<list_reverseiterator object at 0x042CA530>
+>>> rev_questions = reversed(questions)
+	      
+>>> rev_questions
+	      
+<list_reverseiterator object at 0x042CA930>
+>>> type(rev_questions)
+	      
+<class 'list_reverseiterator'>
+>>> for i in rev_questions:
+	      print(i)
+
+	      
+favourite color
+quest
+name 
+ # Returns the elements in list formed due to reversed().
+
+sorted() :
+
+>>> questions.sorted()
+	      
+Traceback (most recent call last):
+  File "<pyshell#10>", line 1, in <module>
+    questions.sorted()
+AttributeError: 'list' object has no attribute 'sorted'
+>>> sorted(questions)
+	      
+['favourite color', 'name', 'quest']
+>>> # Use of sorted() function is to sort the iterable object in ascending order until the KEYWORD ARGUMENT reverse is by default set to False, if WE set it to True, sorting will take place in descending order.
+	      
+>>> sorted(questions, reverse=True)
+	      
+['quest', 'name', 'favourite color']
+>>> # returns the shallow copy of original function with reverse set to True, the list is sorted in descending order.  Here, questions is POSITIONAL ARGUMENT and reverse is a KEYWORD ARGUMENT.
+NOTE- sorted() leaves source unaltered, same occurs with reversed() and zip() because they return a new iterable object at new location. Also, reversed() doesn't work on DICT objects.
+
+In case of 'dict' -
+>>> questions = {'name':'Satyam', 'age':25}
+	      
+>>> rev_ques = reversed(questions)
+	      
+Traceback (most recent call last):
+  File "<pyshell#32>", line 1, in <module>
+    rev_ques = reversed(questions)
+TypeError: 'dict' object is not reversible
+>>> sorted(questions)
+	      
+['age', 'name']
+>>> sorted(questions.items())
+	      
+[('age', 25), ('name', 'Satyam')]
+>>> # sorted() function returns keys: values pair in tuple in a list when used with dict.
+	      
+>>> zip(questions)
+	      
+<zip object at 0x01D159E0>
+>>> questions
+	      
+{'name': 'Satyam', 'age': 25}
+
+It is sometimes tempting to change a list while you are looping over it; however, it is often simpler and safer to create a new list instead. 
+
+isnan():
+A mathematical function, which returns True if 'Not-a-Number' is found else False.
+>>> import math
+	      
+>>> raw_data = [2,3.43,43,float('NaN')]
+	      
+>>> filtered_data = []
+	      
+>>> for value in raw_data:
+	      if not math.isnan():
+	      filtered_data.append(value)
+	      
+SyntaxError: expected an indented block
+>>> for value in raw_data:
+	      if not math.isnan():
+		      filtered_data.append(value)
+	      print(filtered_data)
+
+	      
+Traceback (most recent call last):
+  File "<pyshell#52>", line 2, in <module>
+    if not math.isnan():
+TypeError: isnan() takes exactly one argument (0 given)
+>>> for value in raw_data:
+	      if not math.isnan(value):
+		      filtered_data.append(value)
+
+	      
+>>> filtered_data
+	      
+[2, 3.43, 43]

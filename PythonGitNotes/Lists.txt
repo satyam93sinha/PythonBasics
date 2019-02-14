@@ -1,0 +1,76 @@
+LISTS:
+list, which can be written as a list of comma-separated values (items) between square brackets. Lists might contain items of different types, but usually the items all have the same type.
+
+>>> letters=['a',2]
+>>>#different data-types in list, one is string and 2 is int.
+>>> letters
+['a', 2]
+>>> months=['Jan','Feb','March','4']
+>>> months
+['Jan', 'Feb', 'March', '4']
+>>> months=months[0:2]
+>>> months
+['Jan', 'Feb']
+>>># above slicing removes the third member, 'March' from the list and those arriving later to it.
+>>> months=months[0:3]
+>>> months
+['Jan', 'Feb']
+Lists also support operations like concatenation:
+
+>>>months+'March','April','May',"june"]
+['Jan', 'Feb', 'March', 'April', 'May', 'june']
+>>> months
+['Jan', 'Feb']
+>>>months+=['March','April','May',"june"]
+>>> months
+['Jan', 'Feb', 'March', 'April', 'May', 'june']
+
+Like strings (and all other built-in sequence type), lists can be indexed and sliced:
+
+>>> squares[0]  # indexing returns the item
+1
+>>> squares[-1]
+25
+>>> squares[-3:]  # slicing returns a new list
+[9, 16, 25]
+
+Slice operations return shallow copy of the
+already defined list, thus
+creates a new list.
+Lists are mutable type which
+means their content can be changed.
+>>> months
+['Jan', 'Feb', 'March', 'April', 'May', 'june']
+>>> months[0]=1
+>>> months
+[1, 'Feb', 'March', 'April', 'May', 'june']
+
+We can use append() method to
+add anything in the end of the
+string.
+>>> months.append('July')
+>>> months
+[1, 'Feb', 'March', 'April', 'May', 'june', 'July']
+
+Built-in function len() is applied to lists to get its actual length:
+>>> len(months)
+7
+
+Replacing a slice of string with an empty one:
+>>> months
+[1, 'Feb', 'March', 'April', 'May', 'june', 'July']
+>>> months[2:4]=[]
+>>> months
+[1, 'Feb', 'May', 'june', 'July']
+
+It is possible to nest lists (create lists containing other lists), for example:
+
+>>> a = ['a', 'b', 'c']
+>>> n = [1, 2, 3]
+>>> x = [a, n]
+>>> x
+[['a', 'b', 'c'], [1, 2, 3]]
+>>> x[0]
+['a', 'b', 'c']
+>>> x[0][1]
+'b'

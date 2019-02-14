@@ -1,0 +1,33 @@
+﻿Refer to 1-Inheritance and Multiple Inheritance.py, 2-Inheritance.py, 3-Inheritance Error.py, 4-Inheritance and Multiple Inheritance.py, 5-Inheritance and Multiple Inheritance.py, 6-Inheritance and Multiple Inheritance.py
+
+INHERITANCE:
+
+Syntax-
+class DerivedClassName(BaseClassName):
+    <statement1>
+     .....
+    <statementN>
+or
+class DerivedClassName(moduleName.BaseClass):
+    .....
+BaseClassName must be defined in a scope containing the derived class definition. This is the reason we use moduleName to access BaseClass in order to inherit it.
+Execution of a derived class deﬁnition proceeds the same as for a base class. When the class object is constructed, the base class is remembered. This is used for resolving attribute references: if a requested attribute is not found in the class, the search proceeds to look in the base class. This rule is applied recursively if the base class itself is derived from some other class. 
+An overriding method in a derived class may in fact want to extend rather than simply replace the base class method of the same name. There is a simple way to call the base class method directly: just call BaseClassName.methodname(self, arguments). This is occasionally useful to clients as well. (Note that this only works if the base class is accessible as BaseClassName in the global scope.) 
+>>> issubclass(DerivedClass, BaseClass)
+True
+>>> isinstance(base, DerivedClass)
+False
+
+MULTIPLE INHERITANCE
+
+In multiple inheritance the search for attributes is performed as:
+1. Searches as depth first:
+The search starts from the current derived class scope, stretches to its (first order) base class then to base class of first order base class.
+2. Goes for left-to-right search, means the other base classes of the derived class and then again to their base classes.
+Ex: class Triangle2(Triangle, Polygon)
+Here, search commences from Triangle2 class, moves to Triangle and then its  base class (depth-first-search) and now to (left-to-right search) Polygon, again to Polygon's base classes. This way, searching doesn't occur twice in the same class where there is an overlap in the hierarchy.
+
+We can check the order of its search through print(className.mro()) where mro is Method Resolution Order. In fact, it is slightly more complex than that; the method resolution order changes dynamically to support cooperative calls to super(). This approach is known in some other multiple-inheritance languages as call-next-method and is more powerful than the super call found in single-inheritance languages. 
+Dynamic ordering is necessary because all cases of multiple inheritance exhibit one or more diamond relationships (where at least one of the parent classes can be accessed through multiple paths from the bottommost class). For example, all classes inherit from Object, so any case of multiple inheritance provides more   than one path to reach Object.
+
+Refer to 5-Inheritance, Multiple Inheritance.py and 6-Inheritance, Multiple Inheritance.py to check and understand functioning of mro().

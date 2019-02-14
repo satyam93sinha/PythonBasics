@@ -1,0 +1,28 @@
+﻿Refer to 1-classes, aliasing.py, https://docs.python.org/3/library/__main__.html#module-__main__
+
+CLASSES:
+Provide a means of bundling data, functionality together, i.e, keeping data and related functionality(functions) together encapsulated under one roof, bundled together..
+Creating a new class-
+1. creates a new type of object: when a new class is created, we need to have a object for that class in order to create class' instance, to execute it, be able to use its methods, functions defined.
+2. objects make an instance of that class: as occurs in Java, an object creates an instance of the class by calling the default constructor of class to initialize variables and then  goes for calling methods through main method.
+3. A class instance can have attributes attached to it for maintaining its state.
+4. Class instances can also have methods(defined by its class) for modifying its state.
+5. Compared to other programming languages, Python class can be created with minimum of new syntax and semantics: mostly similar to as we create class in other programming languages as Java, C++.
+6. Mixture of class mechanisms found in C++ and Modula 3, more close to Modula 3.
+7. Provides all the standard features of OOP as-
+i> class inheritance mechanism allows multiple base classes( this doesn't mean there can be multiple inheritance but there can be multiple base classes),
+ii> a derived class can override any methods of its base class or classes, 
+(Run time polymorphism, overrides base class methods through same named derived class method if child  class object is used to access a method present in both child and parent class).
+iii> a method can call the method of base class ( through derived class object)
+Classes partake(join in) dynamic nature of Python, means a class is created at run time, can be modified further after creation.
+iv> built-in types can be used as base classes for extension by the user and consequently built-in types can be redefined for specific class instances.
+
+A WORD ABOUT NAMES AND OBJECTS:
+http://interactivepython.org/runestone/static/CS152f17/Lists/Aliasing.html
+Objects have individuality, and multiple names (in multiple scopes) can be bound to the same object. This is known as aliasing in other languages.
+>>> a = 5
+>>> b = a
+>>> a is b
+True
+# Here, above we have shown an example for aliasing.
+This is usually not appreciated on a ﬁrst glance at Python, and can be safely ignored when dealing with immutable basic types (numbers, strings, tuples). This is ignored with immutable basic types because we can see no effect with the immutable types, they can't be changed in any circumstance. However, aliasing has a possibly surprising eﬀect on the semantics of Python code involving mutable objects such as lists, dictionaries, and most other types. This is usually used to the beneﬁt of the program, since aliases behave like pointers in some respects. Here, the location is referred than copying the value for specific object. Thus, when we use id() we get same identity for both a and b in examples shown in 1-classes, aliasing.py. For example, passing an object is cheap since only a pointer is passed by the implementation; and if a function modiﬁes an object passed as an argument, the caller will see the change (arguments passed is changed inside a function may be checked by user to find the change that occurred in object) — this eliminates the need for two different argument passing mechanisms as in Pascal.

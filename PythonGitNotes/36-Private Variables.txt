@@ -1,0 +1,56 @@
+﻿Refer to 1-Private Variables.py, 1-Private Variables Interpreter.py, 1-1 Private Variables Interpreter.py, 2-Private Variables Interpreter.py 
+https://hackernoon.com/understanding-the-underscore-of-python-309d1a029edc
+
+PRIVATE VARIABLES:
+
+"Private” instance variables that cannot be accessed except from inside an object don’t exist in Python. In other words, there isn't anything as private variable which can't be inherited and is restricted to the class it is defined in, unlike Java or other languages.
+However, there is a convention that is followed by most Python code: a name preﬁxed with an underscore (e.g. _spam) should be treated as a non-public part of the API (whether it is a function, a method or a data member). It should be considered an implementation detail and subject to change without notice. 
+Ex:
+>>> class Base:
+	def __init__(self):
+		self._a = 4
+		print(self._a)
+		
+>>> base = Base()
+4
+>>> base._a
+4
+>>> class Child(Base):
+	print("Child")
+	
+Child
+>>> child = Child()
+4
+>>> child._a
+4
+>>> # name prefixed with an underscore, considered a part of non-public API
+>>> # can also be inherited and accessed through subclass' object.
+
+Since there is a valid use-case for class-private members (namely to avoid name clashes of names with names deﬁned by subclasses), there is limited support for such a mechanism, called name mangling. 
+If you want to emulate private variables for some reason, you can always use the __ prefix from PEP 8. Python mangles the names of variables like __foo so that they're not easily visible to code outside the class that contains them (although you can get around it if you're determined enough, just like you can get around Java's protections if you work at it).
+By the same convention, the _ prefix means stay away even if you're not technically prevented from doing so. You don't play around with another class's variables that look like __foo or _bar.
+Thus, concluding from the above two paragraphs, it is the responsibility of Programmer to not indulge with private variables described with prefixed/leading single, double underscores from outside of the class it is defined in.
+>>> class Base:
+	def __init__(self):
+		self.__a = 4
+		print(self.__a)
+
+		
+>>> base.__a
+Traceback (most recent call last):
+  File "<pyshell#37>", line 1, in <module>
+    base.__a
+AttributeError: 'Base' object has no attribute '__a'
+>>> # Python converts __a to _Base__a, it actually textually replaces it.
+>>> # Thus, stays inaccessible to objects outside class and are said to be
+>>> # private variables with limited support to Name Mangling.
+>>> base._Base__a
+4
+>>> # Name Mangling literally means destroying names, here __a is replaced with
+>>> # _Base__a thus it is called name mangling.
+
+Refer to https://hackernoon.com/understanding-the-underscore-of-python-309d1a029edc
+
+Single leading underscore is used for declaring private variables, functions, methods, classes in a module. Anything with this convention are ignored in " from module import * '
+We also know that python doesn't  support something as private variables (truly private), thus can be called directly from other modules too. This is also called as " weak internal use indicator "
+NOTE Name mangling is helpful for letting subclasses override methods without breaking intraclass method calls. 

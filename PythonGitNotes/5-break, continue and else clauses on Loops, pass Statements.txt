@@ -1,0 +1,145 @@
+https://docs.python.org/3/tutorial/controlflow.html
+
+break AND continue STATEMENTS, AND else CLAUSES ON LOOPS :
+
+break statement in C breaks out of the innermost enclosing of for or while loop.
+In Python loop statements may have an else clause; it is executed when the loop terminates through exhaustion of list (with for) or when the condition becomes false (with while), but not when the loop is terminated by a break statement.
+
+Here else clause is used with for loop rather than if. There's a difference between else of if control statement and else clause of for loop or other loop as while. else clause used with looping construct is more similar(in common) to else clause of a try statement; else clause of try statement runs when no exception occurs and that of loops run when no break is encountered/occurs.
+
+>>> for n in range(2,10):
+	for x in range(2,n):
+		if n%x==0:
+			print(n,'equals',x,'*',x)
+			break
+	else:
+		print(n,'is a prime number')
+
+		
+2 is a prime number
+3 is a prime number
+4 equals 2 * 2
+5 is a prime number
+6 equals 2 * 2
+7 is a prime number
+8 equals 2 * 2
+9 equals 3 * 3
+# when for construct/loop gets exhausted due to condition's exhaustion,
+# else clause is visited 
+# when break is encountered else clause is not visited, thus 8 equals 2*2, the first factor by which n is divided, i.e, x=2;
+>>> range(2,2)
+range(2, 2)
+>>> range
+<class 'range'>
+>>> type(range)
+<class 'type'>
+>>> type(range(2,2))
+<class 'range'>
+>>> type(list(range(2,2)))
+<class 'list'>
+>>> list(range(2,2))
+[]
+>>> list(range(2,3))
+[2]
+# Prime without using break statement, will execute else clause until for loop exhausts
+>>> for n in range(2,10):
+	for x in range(2,n):
+		if n%x==0:
+			print(n,'equals',x,'*',n//x)
+	else:
+		print(n,'is a prime number')
+
+		
+2 is a prime number
+3 is a prime number
+4 equals 2 * 2
+4 is a prime number
+5 is a prime number
+6 equals 2 * 3
+6 equals 3 * 2
+6 is a prime number
+7 is a prime number
+8 equals 2 * 4
+8 equals 4 * 2
+8 is a prime number
+9 equals 3 * 3
+9 is a prime number
+>>> for n in range(2,10):
+	for x in range(2,n):
+		if n%x==0:
+			print(n,'equals',x,'*',n//x)
+			break
+	else:
+		print(n,'is a prime number')
+
+		
+2 is a prime number
+3 is a prime number
+4 equals 2 * 2
+5 is a prime number
+6 equals 2 * 3
+7 is a prime number
+8 equals 2 * 4
+9 equals 3 * 3
+
+The continue statement continues
+with the next iteration of the loop:
+>>> for i in range(5,20):
+	if i%2==0:
+		print('Even number:\t',i)
+		continue
+	print('Odd number:\t',i)
+
+	
+Odd number:	 5
+Even number:	 6
+Odd number:	 7
+Even number:	 8
+Odd number:	 9
+Even number:	 10
+Odd number:	 11
+Even number:	 12
+Odd number:	 13
+Even number:	 14
+Odd number:	 15
+Even number:	 16
+Odd number:	 17
+Even number:	 18
+Odd number:	 19
+
+Note - continue as already mentioned takes control to next iteration or continues with next iteration/looping.
+
+# When same is done using break statement, output is
+
+>>> for i in range(5,20):
+	if i%2==0:
+		print('Even:\t',i)
+		break
+	print('Odd:\t',i)
+
+		      
+Odd:	 5
+Even:	 6
+
+Note- program encountering break statement, moves the control out of the innermost loop thus terminating that loop.
+
+pass STATEMENTS :
+
+pass Statement does nothing.
+>>>while True:
+pass 
+# waits for keyboard interrupt Ctrl+C
+>>> class MyEmptyClass:
+	pass
+yes its  a pass but why?
+SyntaxError: invalid syntax
+>>> def initlog:
+	
+SyntaxError: invalid syntax
+>>> 
+>>> def anything(*args):
+	pass
+'pass here asks to implement this function'
+SyntaxError: invalid syntax
+>>> type(pass)
+SyntaxError: invalid syntax
