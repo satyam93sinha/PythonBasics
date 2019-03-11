@@ -1,4 +1,4 @@
-﻿Refer to 1-Iterators.py, 2-Iterators.py, 3-Iterators.py
+﻿Refer 1-Iterators.py, 2-Iterators.py, 3-Iterators.py
 https://www.programiz.com/python-programming/iterator
 
 ITERATORS
