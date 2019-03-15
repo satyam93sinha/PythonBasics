@@ -1,19 +1,23 @@
 We can exit python interpreter with zero exit status by typing an end-of-file character(Control-D on Unix or Control-Z on Windows). If in case it doesn't work, we can exit the interpreter by typing quit() command. Control-D works on windows.
 
 Interpreter's line-editing features include:
-1) Interactive editing: don't know what it means
-2) History Substitution:  unknown
-3) Code  Completion on systems that support readline: unknown
-To check if command line editing is supported, we can type control-P to the primary prompt we get. If it beeps, command line editing is supported else ^P is echoed/displayed informing command line editing isn't available. In case of editing unavailable we can simply use backspace to remove characters from the current line.
-We can set path for python by writing:
-set path=%path%;path to python
-Python interpreter works very much like Unix shell, when called in with standard input it reads and executes command interactively; when called in with a file name as standard input, it reads and executes a script from that file. 
+1) Interactive editing: Two-way communication between computer and user in IDLE. It means, we can view typed object and the result without compiling it. 
+2) History Substitution:
+May be, substitution of already typed objects/names/functions/loops in IDLE when we press ENTER at that python shell. It numbers python shells if you can see in ERRORS after each object. Thus, every object/function etc. defined is treated in a separate python shell in one IDLE, interpreter.
+3) Code  Completion on systems that support read-line: Auto-code completion, i.e, code suggestions we get in any IDE as PyCharm and Python IDLE.
+To check if command line editing is supported, we can type control-P to the primary prompt we get. If it beeps, command line editing is supported else (carat ^) ^P is echoed/displayed informing command line editing isn't available. In case of editing unavailable we can simply use backspace to remove characters from the current line.
+
+We can set path for Python by firing the command in command prompt as:
+set path=%path%;
+where path is the path to python or we can add Python path through selecting the tick box for ADD Python to PATH
+
+Python interpreter works very much like Unix shell, when called with standard input it reads and executes command interactively(we can say direct communication, without compiling); when called with a file name as standard input, it reads and executes a script from that file. 
 Second way of starting the interpreter is python -c command[arg] ...., ??? Don't know what it does??
 Python modules useful as scripts can be invoked using  python -m module [arg], this executes the source file for module as if source file's full name was spelled.
 Passing -i before the script when a script file is used first executes the script/runs the script and then enters the interactive mode.
 
 Interactive Mode-
-Ready for interaction, python interpreter opens in this mode with primary prompt(>>>) and for continuation, secondary prompt(...). The interpreter states its version number, system OS it's running on as on win32 in my laptop's case. Additionally, the information interpreter provides is for its installation date and time in paranthesis while displaying its version number.
+Ready for interaction, python interpreter opens in this mode with primary prompt(>>>) and for continuation, secondary prompt(...). The interpreter states its version number, system OS it's running on as win32 on my laptop. Additionally, the information interpreter provides is for its installation date and time in parentheses while displaying its version number.
 Python 3.6.5rc1 (v3.6.5rc1:f03c5148cf, Mar 14 2018, 03:12:11) [MSC v.1913 64 bit (AMD64)] on win32
 
 Thus info provided includes:
@@ -21,8 +25,8 @@ Thus info provided includes:
 2) installation date and time:  (Mar 14 2018, 03:12:11)
 3) System's Hardware specification specifically the processor and its length(64bit AMD64) ?? [MSC v.1913 64 bit (AMD64)] on win32
 4) OS ( on win32) ??
-5) copyright details for python available only by typing it again on interpreter
-6) credits details, as to who all are credited to for python developement
+5) copyright details for python can be viewed by typing it again on interpreter
+6) credits details, as to who all are credited to for python development
 7) license() information could be viewed here.
 Type "copyright", "credits" or "license()" for more information.
 
@@ -32,4 +36,4 @@ If we wish to declare encoding other than the default one, we will have to add a
 # -*- coding: encoding -*-
 where encoding is one of the valid codecs supported by Python.
 
-For example, to declare that Windows-1252 encoding is to be used, the ?rst line of your source code ?le should be: # -*- coding: cp-1252 -*One exception to the ?rst line rule is when the source code starts with a UNIX ìshebangî line. In this case, the encoding declaration should be added as the second line of the ?le. For example: #!/usr/bin/env python3 # -*- coding: cp-1252 -*-
+For example, to declare that Windows-1252 encoding is to be used, the ?rst line of your source code ?le should be: # -*- coding: cp-1252 -*One exception to the ?rst line rule is when the source code starts with a UNIX ‚Äúshebang‚Äù line. In this case, the encoding declaration should be added as the second line of the ?le. For example: #!/usr/bin/env python3 # -*- coding: cp-1252 -*-
