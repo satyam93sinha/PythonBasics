@@ -3,19 +3,19 @@ https://docs.python.org/3/tutorial/controlflow.html
 LAMBDA EXPRESSIONS:
  
 Small anonymous functions are created using lambda keyword.
-Rules for lambda-
-Returns a function
-Restricted to single defined expression
-Used wherever function objects are required.
-Like nested function definitions, lambda functions can reference variables from containing scope.
+Rules for lambda function -
+	1. Returns a function
+	2. Restricted to single defined expression
+	3. Used wherever function objects are required.
+	4. Like nested function definitions, lambda functions can reference variables from containing scope.
  
->>> x=lambda a,b:a*b
->>>x(3,4)
+>>> x = lambda a, b : a*b
+>>>x(3, 4)
 12
->>> x=lambda a,b:a*b
+>>> x = lambda a, b : a*b
 >>> x
 <function <lambda> at 0x03490738>
->>> x(2,3)
+>>> x(2, 3)
 6
 >>> type(x)
 <class 'function'>
@@ -32,27 +32,27 @@ TypeError: int() argument must be a string, a bytes-like object or a number, not
 >>> str(x)
 '<function <lambda> at 0x03490738>'
  
->>> pairs=[(4,'wow'),(5,'Thor'),(6,'says'),(2,'hey'),(3,'where\'s'),(1,'hella')]
->>> pairs.sort(key=lambda pairs:pairs[1])
+>>> pairs = [(4,'wow'), (5,'Thor'), (6,'says'), (2,'hey'), (3,'where\'s'), (1,'hella')]
+>>> pairs.sort(key = lambda pairs : pairs[1])
 >>> pairs
 [(5, 'Thor'), (1, 'hella'), (2, 'hey'), (6, 'says'), (3, "where's"), (4, 'wow')]
->>> pairs.sort(key=lambda pairs:pairs[3])
+>>> pairs.sort(key = lambda pairs : pairs[3])
 Traceback (most recent call last):
   File "<pyshell#17>", line 1, in <module>
-	pairs.sort(key=lambda pairs:pairs[3])
+	pairs.sort(key = lambda pairs : pairs[3])
   File "<pyshell#17>", line 1, in <lambda>
-	pairs.sort(key=lambda pairs:pairs[3])
+	pairs.sort(key = lambda pairs : pairs[3])
 IndexError: tuple index out of range
->>> pairs.sort(key=lambda pairs:pairs[0])
+>>> pairs.sort(key = lambda pairs : pairs[0])
 >>> pairs
 [(1, 'hella'), (2, 'hey'), (3, "where's"), (4, 'wow'), (5, 'Thor'), (6, 'says')]
  
->>> pairs.sort(key=lambda pair:pair[0])
+>>> pairs.sort(key = lambda pair : pair[0])
      	 
 >>> pairs
      	 
 [(1, 'hella'), (2, 'hey'), (3, "where's"), (4, 'wow'), (5, 'Thor'), (6, 'says')]
->>> pairs.sort(key=lambda pair:pair[1])
+>>> pairs.sort(key = lambda pair : pair[1])
      	 
 >>> pairs
      	 
@@ -65,16 +65,16 @@ DOCUMENTATION STRINGS:
 
 Rules for Doc-Strings-
 
-1. The first line should always be a short, concise summary of the object’s purpose.
-2. For brevity, it should not explicitly state the object’s name or type, since these are available by other means (except if the name happens to be a verb describing a function’s operation).
+1. The first line should always be a short, concise summary of the objectâ€™s purpose.
+2. For brevity, it should not explicitly state the objectâ€™s name or type, since these are available by other means (except if the name happens to be a verb describing a functionâ€™s operation).
 3. This line should begin with a capital letter and end with a period.
 4. In case of multiple lines in doc-string, second line should be left blank to visually separate the summary from rest of the description.
-5. Can describe the object’s calling conventions, its side effects, etc.
-6. If there's indentation in multi-line string literals, it doesn't get stripped off (removed) through Python Parser so tools that process documentation have to strip 
+5. Can describe the objectâ€™s calling conventions, its side effects, etc.
+6. If there's indentation in multi-line string literals, it doesn't get stripped off (removed) through Python Parser so tools that process documentation have to strip those indentations. 
 7. First line of string is adjacent to double quotes which marks the initiation of documentation string thus indentation is not apparent(clear) in the string literal.
-8. Which could be thought of a reason to not take the first line of docstring for determining documentational indentation.
-9. This indentation throughout the documentational string is now determined by the first non-blank line(line containing string after one blank line is left to visually separate the summary of object's purpose). i.e, the distance between first line's string and next non-blank line string is the indentation.
-10. Whitespace "equivalent" to the indentation(documentational one mentioned above) is then stripped from the start of all lines of the string.
+8. Which(Point 7) could be thought of a reason to not take the first line of docstring for determining documentation indentation.
+9. The indentation throughout the documentation string is now determined by the first non-blank line(line containing string after one blank line is left to visually separate the summary of object's purpose). i.e., the distance between first line's string and next non-blank line string is the indentation.
+10. Whitespace "equivalent" to the indentation(documentation string indentation mentioned above) is then stripped from the start of all lines of the string.
 11. Lines that are indented less shouldn't occur. If they do, all their leading whitespaces should be removed(stripped).
 Note- Equivalence of whitespace should be tested after expansion of tabs(to 8 spaces, normally).
 In PYTHON 3, DOCUMENTATION IS NOT DISPLAYED WHEN WE USE print(function().__doc__) but when we use print(function.__doc__).
