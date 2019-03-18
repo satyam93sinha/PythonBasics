@@ -1,7 +1,7 @@
-﻿Refer to More On Conditions, is, is not, in, not in operators.py, More On Conditions2.py and Comparing Sequences and Other Types.py
+Refer More On Conditions, is, is not, in, not in operators.py, More On Conditions2.py and Comparing Sequences and Other Types.py
 
-MORE ON CONDITIONS-
-Conditions used in while and if statements can contain any operators, not just comparisons (comparison operator). The comparison operators can be 'in' and 'not in' to check if a sequence has specified values or not, whether a value occurs or not in a sequence.
+MORE ON CONDITIONS -
+Conditions used in while and if statements can contain any operator, not just comparisons (comparison operator). The comparison operators can be 'in' and 'not in' to check if a sequence has specified value, whether a value occur in a sequence. These two are called Membership operators.
 >>> a_list
 [2, 3.4, 4.4, 5.0, 6.1]
 >>> for i, 6.0 in enumerate(a_list):
@@ -13,7 +13,7 @@ SyntaxError: can't assign to literal
 >>> while(a_list is list):
 	print("True")
 	break
-# while condition returns False because a_list is not list but it's a subset of list or it is of class list.
+# while condition returns False because a_list is not list but it's a subset of list or class list.
 >>> while(a_list is not list):
 	print("True")
 	break
@@ -34,25 +34,25 @@ The operators 'is' and 'is not' compare whether two objects are same or not; thi
 	break
 
 4
->>> [2,4] is a_list
+>>> [2, 4] is a_list
 False
->>> [2,3] is a_list
+>>> [2, 3] is a_list
 False
 >>> a_list
 [2, 3]
 >>> [2, 3] is a_list
 False
-All comparison operators have the same priority, which is lower than that of all numerical operators. We can also use chained comparisons as a<b == c and this tests whether a is less than b and if b equals to c.
+All comparison operators have the same priority, which is lower than that of all numerical operators. We can also use chained comparisons as a < b  ==  c and it tests whether a is less than b and if b equals to c.
 >>> a = 3
 >>> b = 2
 >>> c = 3
 >>> while(a<b==c):
-	print(a,b,c)
+	print(a, b, c)
 	break
 
 >>> b = 4
 >>> while(a < b == c):
-	print(a,b,c)
+	print(a, b, c)
 	break
 
 >>> b = 2
@@ -64,26 +64,27 @@ All comparison operators have the same priority, which is lower than that of all
 # In the first loop when condition (a<b==c) it evaluates (3<2==3) which returns False thus not entering while loop, and consequently, not printing the values of a, b and c.
 In second loop we evaluated (a < b == c) where (3<4==3) returned False because just the first condition is true in this case, moving forward to 4==3 turns out to be False. NO SHORT-CIRCUITING OCCURS. I assume it takes condition as (3<4 and 4==3) . This is proved in the example below:
 >>> while(a==c<b):
-	print(a,b,c)
+	print(a, b, c)
 	break
 
 >>> while(a==c>b):
-	print(a,b,c)
+	print(a, b, c)
 	break
 3 2 3
 # In the first loop, condition (a==c<b) or (3==3<2) evaluates to False whereas In the second loop here (3==3>2) evaluates to True. 
-Boolean operators 'and' and 'or'  are so-called SHORT-CIRCUIT operators; the outcome can be negated with 'not' operator. The precedence of operators is as 'comparison operators', 'not', 'and' and 'or'. These 'not', 'and' and 'or' operators have lower priorities than comparison operators.
-EX- A and not B or C is evaluated as (A and (not B)) or C. In this case, (not B) is evaluated first, then A and (not B) followed by 'or' C. Parentheses can be used to express the desired composition. Short-circuit operators; their arguments are evaluated from left to right, and evaluation stops as soon as the outcome is determined. For example, if A and C are true but B is false, A and B and C does not evaluate the expression C. When used as a general value and not as a Boolean, the return value of a short-circuit operator is the last evaluated argument.
+Boolean operators 'and' and 'or'  are so-called SHORT-CIRCUIT operators; the outcome can be negated with 'not' operator. The precedence of operators are as 'comparison operators', 'not', 'and' and 'or'. These 'not', 'and' and 'or' operators have lower priorities than comparison operators.
+Ex- A and not B or C is evaluated as (A and (not B)) or C. In this case, (not B) is evaluated first, then A and (not B) followed by 'or' C. Parentheses can be used to express the desired composition. Short-circuit operators; their arguments are evaluated from left to right, and evaluation stops as soon as the outcome is determined. For example, if A and C are true but B is false, A and B and C does not evaluate the expression C. When used as a general value and not as a Boolean, the return value of a short-circuit operator is the last evaluated argument.
 >>> string1, string2, string3 = '', 'copyright', 'credits'
 >>> non_null = string1 or string2 or string3
 >>> non_null
 'copyright'
-# thus, return value of a short-circuit operator in this example is not boolean but last evaluated argument, i.e, string2, i.e, 'copyright'.
+# thus, return value of a short-circuit operator in this example is not Boolean but last evaluated argument, i.e., string2, i.e., 'copyright'.
 NOTE- 
 Note that in Python, unlike C, assignment cannot occur inside expressions. C programmers may grumble about this, but it avoids a common class of problems encountered in C programs: typing = in an expression when == was intended.
 
-COMPARING SEQUENCES AND OTHER TYPES-
-Sequence objects may be compared to other objects with the same sequence type, i.e, tuple and tuple, list and list but not tuple and list. Sequence type objects must be same, of same data type (same class in case of Python because everything in Python is a class and an object). This comparison is performed in "lexicographical" order; firstly, the first two elements of sequence objects are compared, if they are evaluated to false, to different, the outcome is determined else if they are equal, the next two items are compared. This comparison process continues until either sequence is exhausted. If two items to be compared are themselves sequences of the same type, the lexicographical comparison is carried out recursively. If all items of two sequences compare equal, the sequences are considered equal. If one sequence is an initial sub-sequence of the other, the shorter sequence is the smaller (lesser) one. Lexicographical ordering for strings uses the Unicode code point number to order individual characters. 
+COMPARING SEQUENCES AND OTHER TYPES -
+
+Sequence objects may be compared to other objects of same sequence type, i.e., tuple and tuple, list and list but not tuple and list. Sequence type objects must be same, of same data type (same class in case of Python because everything in Python is a class and an object). This comparison is performed in "lexicographical" order; firstly, the first two elements of sequence objects are compared, if they are evaluated to false, to different, the outcome is determined else if they are equal, the next two items are compared. This comparison process continues until either sequence is exhausted. If two items to be compared are themselves sequences of the same type, the lexicographical comparison is carried out recursively. If all items of two sequences compare equal, the sequences are considered equal. If one sequence is an initial sub-sequence of the other, the shorter sequence is the smaller (lesser) one. Lexicographical ordering for strings use the Unicode code point number to order individual characters. 
 >>> (1,3,4) < (1,3,4)
 False
 >>> (1,3,4) is (1,3,4)
@@ -120,7 +121,7 @@ True
 >>> 'Pascal'<'Python'
 True
 Note that comparing objects of different types with < or > is legal provided the objects have appropriate comparison methods. For example, mixed numeric types are compared according to their numeric value, so 0 equals 0.0, etc. Otherwise, rather than providing an arbitrary ordering, the interpreter will raise a TypeError exception.
->>> (1,2,('aa','bb')) == (1,2,('abc','ab'),4)
+>>> (1, 2, ('aa', 'bb')) == (1, 2,('abc', 'ab'), 4)
 False
->>> (1,2,('aa','bb')) < (1,2,('abc','ab'),4)
+>>> (1, 2, ('aa', 'bb')) < (1 ,2, ('abc', 'ab'), 4)
 True
