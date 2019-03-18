@@ -1,24 +1,25 @@
-﻿Refer to 1-Fancier Output Formatting.py, 2-Fancier Output Formatting
+Refer 1-Fancier Output Formatting.py, 2-Fancier Output Formatting
 
 FANCIER OUTPUT FORMATTING:
 
 Three ways of writing values:
-1. Expression Statements- writing statements directly on the interpreter
-2. print() function.
-3. use write() method of file objects: standard output file can be referenced as sys.stdout. See Library Reference for more info on this.
+	1. Expression Statements - writing statements directly to the interpreter
+	2. print() function.
+	3. use write() method of file objects: standard output file can be referenced as sys.stdout. See Library Reference for more info on this.
 
 Two ways to control format the output:
-1. do self string handling; use slices, concatenation operations to create an layout one imagines. Additionally, string methods to perform operations for padding strings to a given column width.
-2. use formatted string literals, or the str.format() method.
-3. string Module contains a Template class which offers another way to substitute values into strings.
+
+	1. You can do all the string handling yourself by using string slicing and concatenation operations to create any layout you can imagine. The string type has some methods that perform useful operations for padding strings to a given column width.
+	2. use formatted string literals mentioning f or F in the beginning of string providing variables or literals within the curly braces {}, or the str.format() method. There are more methods of formatting a string as using the % operator instead of format() method/attribute of string.
+	3. string Module contains a Template class which offers another way to substitute values into strings, using placeholders like $x and replacing them with values from a dictionary, but offers much less control of the formatting.
 
 Two ways to convert values to strings:
-1. str() - meant to return representations of values which are fairly human-readable. The objects which don't have any specific representation for human consumption, str() will return same value/representation as repr().
-2. repr() - meant to generate representations of values which can be read by the interpreter.
-SyntaxError: if there is no equivalent syntax.
+	1. str() - meant to return representations of values which are fairly human-readable. The objects which don't have any specific representation for human consumption, str() will return same value/representation as repr().
+	2. repr() - meant to generate representations of values which can be read by the interpreter.
+        SyntaxError: if there is no equivalent syntax.
 NOTE- Many values, such as numbers or structures like lists and dictionaries, have the same representation using either function. Strings, in particular, have two distinct representations. 
 Some Examples:
-Refer to Examples 1-Fancier Output Formatting.py
+Refer Examples 1-Fancier Output Formatting.py
 
 >>> s = 'Hello, world.' 
 >>> str(s) 
@@ -32,7 +33,7 @@ Refer to Examples 1-Fancier Output Formatting.py
 >>> print(s) The value of x is 32.5, and y is 40000... 
 >>> # The repr() of a string adds string quotes and backslashes: ... hello = 'hello, world\n'
 >>> hellos = repr(hello) 
->>> print(hellos) 'hello, world\n' 
+>>> print(hellos) 'hello, world\n'
 >>> # The argument to repr() may be any Python object: 
 ... repr((x, y, ('spam', 'eggs'))) "(32.5, 40000, ('spam', 'eggs'))" 
 
@@ -105,17 +106,19 @@ Two  ways to write table of squares and cubes:
 >>> for x in range(1, 11): 
 ... print('{0:2d} {1:3d}   {2:4d}'.format(x, x*x, x*x*x)) 
 ... 1 1 1 2 4 8 3 9 27 4 16 64 5 25 125 6 36 216 7 49 343 8 64 512 9 81 729 10 100 1000 
+I can say that rjust(2) is equivalent to {0:2d}, similarly rjust(3) and rjust(4) to {1:3d} and {2:4d}. Here, we have mentioned 0, 1 and 2 to reference the index of format() function. 2d, 3d and 4d are to mark the number of spaces to format the string.
 
 NOTE- one space between each column gets added by the way print() works: by default it adds spaces between its arguments.
 
 Four ways to actually justify a string, add padding;
-1. str.rjust(length, fillchar) - method of string objects, which right-justiﬁes a string in a ﬁeld of a given width by padding it with spaces(by default) on the left.
-length: length of the modified string. If length is less than or equal to the length of the original string then original string is returned.
-fillchar: (optional) characters which needs to be padded. If it’s not provided, space is taken as a default argument.
-2. str.ljust(length, fillchar) - left justifies a string, works similar to str.rjust().
-3. str.center(length, fillchar) - center justifies a string, works similar to str.rjust().
-4. str.zfill() - which pads a numeric string on the left with zeros. It understands about plus and minus signs.
-NOTE- fillchar takes exactly one argument, that too unicode, not integer.
+
+	1. str.rjust(length, fillchar) - method of string objects, which right-justiﬁes a string in a ﬁeld of a given width by padding it with spaces(by default) on the left. 
+	length: length of the modified string. If length is less than or equal to the length of the original string then original string is returned.
+	fillchar: (optional) characters which needs to be padded. If it’s not provided, space is taken as a default argument.
+	2. str.ljust(length, fillchar) - left justifies a string, works similar to str.rjust().
+	3. str.center(length, fillchar) - center justifies a string, works similar to str.rjust().
+	4. str.zfill() - which pads a numeric string on the left with zeros. It understands plus and minus signs.
+NOTE- fillchar takes exactly one argument, a unicode, not an integer.
 
 These methods do not write anything, they just return a new string. If the input string is too long, they don’t truncate it, but return it unchanged; this will mess up your column lay-out but that’s usually better than the alternative, which would be lying about a value. (If you really want truncation you can always add a slice operation, as in x.ljust(n)[:n].) 
 
@@ -143,13 +146,13 @@ Traceback (most recent call last):
 IndexError: tuple index out of range
 >>> print('{0}, {word2}'.format(s, word2=s_2))
 hello, world
->>> # .format(*args) and as we already know (*args) takes tuple as input, thus   when we put {1} the index of tuple is taken as 1 which is out of range bcoz the keyword argument already is defined with its value, so correct would be to      refer to the tuple according to its index.
+>>> # .format(*args) and as we already know (*args) takes tuple as input, thus when we put {1} the index of tuple is taken as 1 which is out of range bcoz the keyword argument already is defined with its value, so correct would be to refer to the tuple according to its index.
 '!a' (apply ascii()), '!s' (apply str()) and '!r' (apply repr()) can be used to convert the value before it is formatted: 
 >>> print('{!s}, {!r}'.format(s, s_2))
 hello, 'world'
 >>> print('{!a}, {!r}'.format(s, s_2))
 'hello', 'world'
->>> # !a, !s,!r to convert values to ascii, str() and repr() strings before they are formatted.
+>>> # !a, !s, !r to convert values to ascii, str() and repr() strings before they are formatted.
 
 An optional ':' and format speciﬁer can follow the ﬁeld name. This allows greater control over how the value is formatted. The following example rounds Pi to three places after the decimal. 
 >>> import math
@@ -157,7 +160,7 @@ An optional ':' and format speciﬁer can follow the ﬁeld name. This allows gr
 3.142
 >>> math.pi
 3.141592653589793
->>> # the actual value of math.pi is shown above which gets formatted to 3       decimal places through .format() and optional use of ":" with format specifier.
+>>> # the actual value of math.pi is shown above which gets formatted to 3 decimal places through .format() and optional use of ":" with format specifier.
 >>> print('{0:5f}'.format(1234567890))
 1234567890.000000
 >>> print('{0:5}'.format(1234567890))
@@ -182,14 +185,15 @@ Evelyn, 39884
 If you have a really long format string that you don’t want to split up, it would be nice if you could reference the variables to be formatted by name instead of by position. This can be done by simply passing the dict and using square brackets '[]' to access the keys 
 >>> table = {'Sjoerd': 4127, 'Jack': 4098, 'Dcab': 8637678} 
 >>> print('Jack: {0[Jack]:d}; Sjoerd: {0[Sjoerd]:d}; ' 
-... 'Dcab: {0[Dcab]:d}'.format(table)) Jack: 4098; Sjoerd: 4127; Dcab: 8637678 
+... 'Dcab: {0[Dcab]:d}'.format(table)) 
+Jack: 4098; Sjoerd: 4127; Dcab: 8637678 
 This could also be done by passing the table as keyword arguments with the ‘**’ notation. 
 >>> table = {'Sjoerd': 4127, 'Jack': 4098, 'Dcab': 8637678} 
 >>> print('Jack: {Jack:d}; Sjoerd: {Sjoerd:d}; Dcab: {Dcab:d}'.format(**table)) 
 Jack: 4098; Sjoerd: 4127; Dcab: 8637678 
 
 OLD STRING FORMATTING:
-The % operator can also be used for string formatting. It interprets the left argument(Here, %5.3f) much like a sprintf()-style format string to be applied to the right argument(here, % math.pi), and returns the string resulting from this formatting operation. 
+The % operator can also be used for string formatting. It interprets the left argument(Here, %5.3f) much like a sprintf() - style format string to be applied to the right argument(here, % math.pi), and returns the string resulting from this formatting operation. 
 For example: 
 >>> import math 
 >>> print('The value of PI is approximately %5.3f.' % math.pi) 
