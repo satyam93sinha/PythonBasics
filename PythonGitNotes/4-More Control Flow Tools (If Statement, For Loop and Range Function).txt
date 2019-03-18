@@ -3,35 +3,36 @@ https://docs.python.org/3/tutorial/controlflow.html
 MORE CONTROL FLOW TOOLS:
 
 IF STATEMENT-
-There can be zero or more elif parts, and the else part is optional. The keyword ‘elif’ is short for ‘else if’, and is useful to avoid excessive indentation. An if … elif … elif … sequence is a substitute for the switch or case statements found in other languages.
 
-Python’s for statement iterates over the items of any sequence (a list or a string), in the order that they appear in the sequence.
->>> #Using for control statement
->>> #Measuring strings in a list-
->>> word=['first','second','third']
+There can be zero or more elif parts, and the else part is optional. The keyword â€˜elifâ€™ is short for â€˜else ifâ€™, and is useful to avoid excessive indentation. An if â€¦ elif â€¦ elif â€¦ sequence is a substitute for the switch or case statements found in other languages.
+
+Pythonâ€™s for statement iterates over the items of any sequence (a list or a string), in the order that they appear in the sequence.
+>>> # Using for control statement
+>>> # Measuring strings in a list-
+>>> word = ['first', 'second', 'third']
 >>> for w in word
 SyntaxError: invalid syntax
 >>> for w in word:
-	print(w,len(word))
+	print(w, len(word))
 
 	
 first 3
 second 3
 third 3
->>> #In previous example len(word) shows length of the list named 'word'
->>> #Here we perform for-iteration for every word in order to count characters in them
+>>> # In previous example len(word) shows length of the list named 'word'
+>>> # Here we perform for-iteration for every word in order to count characters in them
 >>> for w in word:
-	print(w,len(w))
+	print(w, len(w))
 
 	
 first 5
 second 6
 third 5
 
-Iterating over a sequence doesn't implicitly make a copy in any looping(for loop) constructs in python. If in case we need to modify the sequence we are iterating over and over inside a loop, first its copy should be made so that no modifications occur directly with the sequence. Selected items can be duplicated using slice notation:
->>>>>> words=['he', 'hi','hey', 'hello']
+Iterating over a sequence doesn't implicitly make a copy in any looping(for loop) constructs in python. If in case we need to modify the sequence we are iterating over and over inside a loop, first its copy should be made so that no modifications occur directly with the original sequence. Selected items can be duplicated using slice notation:
+>>>>>> words=['he', 'hi', 'hey', 'hello']
 >>> for w in words[:]:
-	if (len(w)>2):
+	if (len(w) > 2):
 		words.insert(1,w)
 
 		
@@ -105,10 +106,10 @@ Ex-
 
 range() can also start from some middle value or can specify different increment than just increasing the value by 1.
 Three ways in which we can use range()-
-1. range(5) : passing single argument directly to function
-2.    range(3,20) : passing two arguments to function where first one tells the starting point of a sequence in arithmetic progression and second one informs of the end point (excluded value 20) in series.
-3.     range(3,20,5) : passing three arguments to range() where third argument informs compiler that arithmetic progression to be generated will have difference  of 5 between series, a=3, l=20 and d=5.
-# if only one argument is passed range() takes default value 0 as starting point and treats user defined value as end point, also increments it by 1 by default. The increment  is  possible in negative case too, it is called as 'step' sometimes.
+	1. range(5) : passing single argument directly to function
+	2. range(3,20) : passing two arguments to function where first one tells the starting point of a sequence in arithmetic progression and second one informs of the end point (excluded value 20) in series.
+	3. range(3,20,5) : passing three arguments to range() where third argument informs compiler that arithmetic progression to be generated will have difference  of 5 between series, a=3, l=20 and d=5.
+# if only one argument is passed range() takes default value 0 as starting point and treats user defined value as end point, also increments it by 1, by default. The increment  is  possible in negative case too, it is called as 'step' sometimes.
 NOTE- range()  always takes integer type as  its argument.
 
 >>> list=range(3)
@@ -152,7 +153,7 @@ Traceback (most recent call last):
 TypeError: 'tuple' object cannot be interpreted as an integer
 >>> tup=(2,3,5)
 >>> for i in range(len(tup)):
-	print(i,tup[i])
+	print(i, tup[i])
 
 	
 0 2
@@ -162,7 +163,7 @@ TypeError: 'tuple' object cannot be interpreted as an integer
 Here we pass the length or size of tuple as parameter to range() thus keeping its syntax valid by passing an integer value, this statement iterates over integer value later when we print counter variable i and access the index associated with that counter displays complete tuple with its index number as shown above.
 >>> print(range(10))
 range(0, 10)
-NOTE- In many ways the object returned by range() behaves as if it is a list, but in fact it isn’t. It is an object which returns the successive items of the desired sequence when you iterate over it, but it doesn’t really make the list, thus saving space.
+NOTE- In many ways the object returned by range() behaves as if it is a list, but in fact it isnâ€™t. It is an object which returns the successive items of the desired sequence when you iterate over it, but it doesnâ€™t really make the list, thus saving space.
 We say such an object is iterable, that is, suitable as a target for functions and constructs that expect something from which they can obtain successive items until the supply is exhausted. We have seen that the for statement is such an iterator. The function list() is another; it creates lists from iterables:
 
 >>> list(range(5))
