@@ -1,5 +1,5 @@
 
-Refer to More On Lists Shell.py, Queue.py file for examples.
+Refer More On Lists Shell.py, Queue.py file for examples.
 
 MORE ON LISTS-
 list.append(x) : Equivalent to a[len(a):]=[x]
