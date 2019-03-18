@@ -1,6 +1,6 @@
 Refer to Dictionary 1.py  and Dictionary 2.py
 
-DICTIONARIES-
+DICTIONARY -
 Useful data type built into Python. Found in other languages as "associative memories" or "associative arrays". Sequences are indexed by a range of numbers, dictionaries are indexed by keys, which can be any immutable type; strings and numbers can always be keys. Tuples too can be taken as keys if they contain only strings, numbers or tuples; Any tuple containing mutable objects can't be used as keys, similarly no list can be keys because keys are immutable type and can never be mutable.
 Dictionaries can be thought as an unordered set of key: value pairs, provided the keys are unique (can't be same in dictionary). { } creates an empty dictionary. 
 >>> a = {}
@@ -21,7 +21,8 @@ SyntaxError: invalid syntax
 >>> a = {:,}
 SyntaxError: invalid syntax
 >>> a
-{' ': ' '} #space between single inverted commas is given to simply clear there's single inverted commas(with nothing). In python interpreter it is displayed as {'':''}
+{' ': ' '} 
+# space between single inverted comma is given to simply clear there's single inverted comma(with nothing). In python interpreter it is displayed as {'':''}
 >>> a = {key = value,}
 SyntaxError: invalid syntax
 >>> a = {'key' = 'value',}
@@ -32,12 +33,12 @@ SyntaxError: invalid syntax
 >>> a = {"":"",}
 >>> a
 {'': ''}
->>> # Placing a comma separated list of key: value pairs within the braces adds initial key: value pairs to the dictionary; this is also the way dictionaries are written on output.
+>>> # Placing a comma separated list of key: value pairs within the braces adds initial key: value pairs to the dictionary; this is also the way dictionaries are written at output.
 >>> a = {:,}
 SyntaxError: invalid syntax
 >>> a
 {'': ''}
-The main operations on a dictionary are storing a value with some key and extracting the value given the key. It is also possible to delete a key:value pair with del. If you store using a key that is already in use, the old value associated with that key is forgotten. It is an error to extract a value using a non-existent key. 
+The main operations on a dictionary are storing a value with some key and extracting the value providing specific key. It is also possible to delete a key : value pair with del. If you store using a key that is already in use, the old value associated with that key is forgotten. It is an error to extract a value using a non-existent key. 
 >>> dictionary = {}
 >>> list(dictionary.keys())
 []
@@ -54,7 +55,7 @@ AttributeError: 'dict' object has no attribute 'value'
 >>> """ Value isn't returned"""
 >>> sorted(dictionary.keys())
 ['Qualification', 'age', 'name']
->>> # returns a new list, shallow copy until stored to another list object, contains all items from the iterable in ascending order when reverse is set to False by default. In this case, sorted(iterable, /, *, key=None, reverse = False) sorts the keys on ASCII values in ascending order and then returns a new list.
+>>> # returns a new list, shallow copy until stored to another list object, contains all items from the iterable in ascending order when reverse is set to False by default. In this case, sorted(iterable, /, *, key=None, reverse = False) sort the keys according to their ASCII values in ascending order and then returns a new list.
 >>> sorted(dictionary.keys(), reverse = True)
 ['name', 'age', 'Qualification']
 #  reverse = True, sorts in descending order.
@@ -65,6 +66,7 @@ True
 SyntaxError: invalid syntax
 >>> dict((studio, marvel), (bestmovie, Avengers Infinity War))
 SyntaxError: invalid syntax
+# due to presence of spaces without providing quotations
 >>> dict((studio, marvel), (bestmovie, Avengers_Infinity_War))
 Traceback (most recent call last):
   File "<pyshell#19>", line 1, in <module>
@@ -77,12 +79,16 @@ Traceback (most recent call last):
 NameError: name 'studio' is not defined
 >>> dict([('studio', 'marvel'), ('best movie', 'Avengers:Infinity War')])
 {'studio': 'marvel', 'best movie': 'Avengers:Infinity War'}
+
+>>> dict((('studio', 'Marvel'), ("first_female_standalone_movie", 'Captain Marvel')))
+{'studio': 'Marvel', 'first_female_standalone_movie': 'Captain Marvel'}
+
 # The dict() constructor builds dictionaries directly from sequences of key-value pairs.
 >>> squares
 {2: 4, 4: 16, 5: 25, 6: 36}
 >>> squares.get(4)
 16
->>> # We use get(self, key, default=None, /) to get the value for specific key present in dictionary, if absent will return default value.
+>>> # We use get(self, key, default=None, /) to get the value for specific key present in dictionary, if absent default value is returned.
 >>> squares.get(0)
 # returns nothing
 In addition, dict comprehensions can be used to create dictionaries from arbitrary key and value expressions: 
@@ -91,4 +97,3 @@ In addition, dict comprehensions can be used to create dictionaries from arbitra
 When the keys are simple strings, it is sometimes easier to specify pairs using keyword arguments: 
 >>> dict(sape=4139, guido=4127, jack=4098) 
 {'sape': 4139, 'guido': 4127, 'jack': 4098}
-
