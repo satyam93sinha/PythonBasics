@@ -1,17 +1,10 @@
-﻿
 INTRA-PACKAGE REFERENCES:
 There are two kinds of intra-package references::
-1. Absolute imports-
-Whenever Packages are structured into subpackages, most recommended reference of a package from another or sibling package(within same parent package) is absolute imports.
-Ex-
-if module sound.filters.vocoder needs to use the echo module in sound.effects package, it can use:
-from sound.effects import echo
-
-2. Relative Imports:
-from module import name
-These imports use leading dots to indicate the current and parent packages involved in the relative import.
-Ex-
-from . import echo 
+	1. Absolute imports: Whenever Packages are structured into subpackages, most recommended reference of a package from another or sibling package(within same parent package) is absolute imports. Ex- if module sound.filters.vocoder needs to use the echo module in sound.effects package, it can use: from sound.effects import echo. Thus, sound has sub-package filters which again has sub-package/module/class/function/variable vocoder and has to import echo module present in sound parent package => effects sub-package.
+	2. Relative Imports:
+	from module import name
+	These imports use leading dots to indicate the current and parent packages involved in the relative import.
+	Ex- from . import echo 
 # echo is subpackage of subpackage effects of parent package sound.
 from .. import formats 
 # formats is subpackage of parent package sound.
@@ -22,4 +15,4 @@ Note that relative imports are based on the name of the current module. Since th
 
 PACKAGES IN MULTIPLE DIRECTORIES:
 
-Packages support one more special attribute, __path__. This is initialized to be a list containing the name of the directory holding the package’s __init__.py before the code in that ﬁle is executed. This variable can be modiﬁed; doing so affects future searches for modules and subpackages contained in the package. While this feature is not often needed, it can be used to extend the set of modules found in a package.
+Packages support one more special attribute, __path__. This is initialized to be a list containing the name of the directory holding the package’s __init__.py before the code in that ﬁle is executed. This variable can be modiﬁed; doing so affects future searches for modules and sub-packages contained in the package. While this feature is not often needed, it can be used to extend the set of modules found in a package.
