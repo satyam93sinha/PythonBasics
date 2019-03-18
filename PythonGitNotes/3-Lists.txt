@@ -1,33 +1,34 @@
 LISTS:
-list, which can be written as a list of comma-separated values (items) between square brackets. Lists might contain items of different types, but usually the items all have the same type.
 
->>> letters=['a',2]
->>>#different data-types in list, 'a' is string and 2 is int.
+List, which can be written as a list of comma-separated values (items) between square brackets. Lists might contain items of different types, but usually all the items have same type.
+
+>>> letters = ['a',2]
+>>># different data-types in list, 'a' is string and 2 is int.
 >>> letters
 ['a', 2]
->>> months=['Jan','Feb','March','4']
+>>> months = ['Jan', 'Feb', 'March', '4']
 >>> months
 ['Jan', 'Feb', 'March', '4']
->>> months=months[0:2]
+>>> months = months[0:2]
 >>> months
 ['Jan', 'Feb']
 >>># above slicing removes the third member, 'March' from the list and those arriving later to it.
->>> months=months[0:3]  # as now months list store ['Jan','Feb'] when slicing it to index value greater than the index of months, it will return all the values if present because the slicing index value is greater than the actual length of the list.
+>>> months = months[0:3]  # as now months-list stores ['Jan', 'Feb'] when slicing it to index value greater than the index of months, it will return all the values if present because the slicing index value is greater than the actual length of the list.
 >>> months
 ['Jan', 'Feb']
 Lists also support operations like concatenation: 
 # After concatenation the list stays the same, nothing gets altered because the added part is treated as different list, (PROBABLY). Simply append() operation occurs which adds list/values at the end of any pre-mentioned list/object.
 
->>>months+'March','April','May',"june"]
+>>>months + 'March','April','May',"june"]
 ['Jan', 'Feb', 'March', 'April', 'May', 'june']
 >>> months
 ['Jan', 'Feb']
->>>months+=['March','April','May',"june"]
+>>>months += ['March','April','May',"june"]
 # Assigning the appended months with another immediate new list addition to months list. Now, the list gets updated or changed.
 >>> months
 ['Jan', 'Feb', 'March', 'April', 'May', 'june']
 
-Like strings (and all other built-in sequence type), lists can be indexed and sliced:
+Like strings (and all other built-in sequence type), Lists can be indexed and sliced:
 # squares= [1,4,9,16,25]
 >>> squares[0]  # indexing returns the item
 1
@@ -36,20 +37,15 @@ Like strings (and all other built-in sequence type), lists can be indexed and sl
 >>> squares[-3:]  # slicing returns a new list (shallow copy of the original list), this new sliced list is stored in ' _ ' which has magic behavior of storing latest or recent output.
 [9, 16, 25]
 
-Slice operations return shallow copy of the
-already defined list, thus
-creates a new list.
-Lists are mutable type which
-means their content can be changed.
+Slice operations return shallow copy of the already defined list, thus creates a new list but it isn't saved in memory unless assigned to a variable(actually, an object).
+Lists are mutable which means their content can be changed.
 >>> months
 ['Jan', 'Feb', 'March', 'April', 'May', 'june']
 >>> months[0]=1
 >>> months
 [1, 'Feb', 'March', 'April', 'May', 'june']
 
-We can use append() method to
-add anything at the end of the
-list.
+We can use append() method to add anything at the end of the list.
 >>> months.append('July')
 >>> months
 [1, 'Feb', 'March', 'April', 'May', 'june', 'July']
@@ -65,8 +61,7 @@ Replacing a slice of string with an empty one:
 >>> months
 [1, 'Feb', 'May', 'june', 'July']
 
-It is possible to nest lists (create lists containing other lists), for example:
-
+It is possible to Nest Lists (create lists containing other lists), for example:
 >>> a = ['a', 'b', 'c']
 >>> n = [1, 2, 3]
 >>> x = [a, n]
