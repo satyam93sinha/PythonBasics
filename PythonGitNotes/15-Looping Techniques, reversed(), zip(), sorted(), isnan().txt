@@ -1,9 +1,9 @@
-﻿
 
-LOOPING TECHNIQUES-
+
+LOOPING TECHNIQUES -
 We can retrieve keys and value pair using items() method.
 >>> for k, v in squares.items():
-	print(k,v)
+	print(k, v)
 
 	
 0 0
@@ -20,7 +20,7 @@ We can retrieve keys and value pair using items() method.
 >>> dict_list=[]
 >>> for k, v in squares.items():
 	dict_list_append = []
-	dict_list_append.extend([k,v])
+	dict_list_append.extend([k, v])
 	dict_list.append(dict_list_append)
 
 	
@@ -54,23 +54,23 @@ We can retrieve keys and value pair using items() method.
 (15, 6)
 (16, 7)
 # The enumerate object yields pairs containing a count (from start, which
- |  defaults to zero) and a value yielded by the iterable argument.
+ |  defaults to zero) and a value yielded by the iterable argument. Thus, we can say that enumerate is an iterator.
 
 zip() :
 To loop over two or more sequences at the same time, the entries can be paired with the zip() function.
->>> questions = ['name', 'quest','favourite color']
+>>> questions = ['name', 'quest', 'favorite color']
 >>> answers = ['Bob', 'Learning new Languages', 'blue']
->>> for q,a in zip(questions,answers):
-	print("What's your {0}?",sep='
+>>> for q, a in zip(questions, answers):
+	print("What's your {0}?", sep='
 	      
 SyntaxError: EOL while scanning string literal
->>> for q,a in zip(questions,answers):
+>>> for q, a in zip(questions, answers):
 	print("What's your {0}? It's {1}".format(q,a))
 
 	      
 What's your name? It's Bob
 What's your quest? It's Learning new Languages
-What's your favourite color? It's blue
+What's your favorite color? It's blue
 
 >>> type(zip(questions))
 	      
@@ -86,11 +86,11 @@ What's your favourite color? It's blue
 	      
 ('name',)
 ('quest',)
-('favourite color',)
->>> # iterates over list or any other iterable object, stores it's elements in tuple, without iteration over zip object it returns the location where those elements are stored. On iterating over zip object, we get those elements printed as here in zip_questions.
+('favorite color',)
+>>> # iterates over list or any other iterable object, stores its elements in tuple, without iteration over zip object it returns the location where those elements are stored. On iterating over zip object, we get those elements printed, as here in zip_questions.
 
 reversed() :
-CLASS 'LIST_REVERSEITERATOR'. Reverses the iterable object and returns the list's location, if stored in some other object, when that object is iterated returns the elements. EX= rev_questions in code mentioned below.
+CLASS 'LIST_REVERSEITERATOR'. Reverses the iterable object and returns the list's location, if stored in some other object, when that object is iterated the elements are returned. EX= rev_questions in code mentioned below.
 >>> reversed(questions)
 	      
 <list_reverseiterator object at 0x042CA530>
@@ -122,16 +122,17 @@ AttributeError: 'list' object has no attribute 'sorted'
 >>> sorted(questions)
 	      
 ['favourite color', 'name', 'quest']
->>> # Use of sorted() function is to sort the iterable object in ascending order until the KEYWORD ARGUMENT reverse is by default set to False, if WE set it to True, sorting will take place in descending order.
+>>> # Use of sorted() function is to sort the iterable object in ascending order until the KEYWORD ARGUMENT reverse is by default set to False, if WE set it to True, sorting will be done in descending order.
 	      
 >>> sorted(questions, reverse=True)
 	      
 ['quest', 'name', 'favourite color']
 >>> # returns the shallow copy of original function with reverse set to True, the list is sorted in descending order.  Here, questions is POSITIONAL ARGUMENT and reverse is a KEYWORD ARGUMENT.
+
 NOTE- sorted() leaves source unaltered, same occurs with reversed() and zip() because they return a new iterable object at new location. Also, reversed() doesn't work on DICT objects.
 
 In case of 'dict' -
->>> questions = {'name':'Satyam', 'age':25}
+>>> questions = {'name': 'Satyam', 'age': 25}
 	      
 >>> rev_ques = reversed(questions)
 	      
@@ -145,7 +146,7 @@ TypeError: 'dict' object is not reversible
 >>> sorted(questions.items())
 	      
 [('age', 25), ('name', 'Satyam')]
->>> # sorted() function returns keys: values pair in tuple in a list when used with dict.
+>>> # sorted() function returns key: value pair in tuple within a list, when used with dict.
 	      
 >>> zip(questions)
 	      
@@ -160,7 +161,7 @@ isnan():
 A mathematical function, which returns True if 'Not-a-Number' is found else False.
 >>> import math
 	      
->>> raw_data = [2,3.43,43,float('NaN')]
+>>> raw_data = [2, 3.43, 43, float('NaN')]
 	      
 >>> filtered_data = []
 	      
