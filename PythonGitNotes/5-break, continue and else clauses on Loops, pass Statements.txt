@@ -3,9 +3,9 @@ https://docs.python.org/3/tutorial/controlflow.html
 break AND continue STATEMENTS, AND else CLAUSES ON LOOPS :
 
 break statement in C breaks out of the innermost enclosing of for or while loop.
-In Python loop statements may have an else clause; it is executed when the loop terminates through exhaustion of list (with for) or when the condition becomes false (with while), but not when the loop is terminated by a break statement.
+In Python, loop statements may have an else clause; it is executed when the loop terminates through exhaustion of list (with for) or when the condition becomes false (with while), but not when the loop is terminated by a break statement.
 
-Here else clause is used with for loop rather than if. There's a difference between else of if control statement and else clause of for loop or other loop as while. else clause used with looping construct is more similar(in common) to else clause of a try statement; else clause of try statement runs when no exception occurs and that of loops run when no break is encountered/occurs.
+Here else clause is used with for loop rather than if. There's a difference between else of if control statement and else clause of for loop or as while loop. else clause used with looping construct is more similar(in common) to else clause of a try statement; else clause of try statement executes(runs) when no exception occurs and that of loops execute(run) when no break is encountered/occurs.
 
 >>> for n in range(2,10):
 	for x in range(2,n):
@@ -82,8 +82,7 @@ range(2, 2)
 8 equals 2 * 4
 9 equals 3 * 3
 
-The continue statement continues
-with the next iteration of the loop:
+The continue statement continues with the next iteration of the loop:
 >>> for i in range(5,20):
 	if i%2==0:
 		print('Even number:\t',i)
