@@ -1,17 +1,19 @@
-﻿Refer to Fibonacci_Package.py folder containing __init__.py, __pycache__ (compiled version of __init__.py stored for fast load into the interpreter), Fibonacci.py, FibonacciReturn.py files, Interpreter Fibonacci Package.py, Interpreter Fibonacci Package2.py for interpreter's code.
+Refer Fibonacci_Package.py folder containing __init__.py, __pycache__ (compiled version of __init__.py stored for fast load into the interpreter), Fibonacci.py, FibonacciReturn.py files, Interpreter Fibonacci Package.py, Interpreter Fibonacci Package2.py for interpreter's code.
 
 PACKAGES:
-Use of Modules save the authors, programmers from the worry of using each other's global variables. In other words, we can have same names, variables, objects, functions in different modules and when importing them to another module or interpreter we won't have to worry of any contradiction to arise from the same names. This contradiction can be ignored because one can only access specific module's names, global variables through that module as Fibonacci.fib().
-Similar to Modules, Packages are a way of structuring Python's module namespace by using "dotted module names". Authors, programmers can be saved from worry of using each other's global variables by using Packages. Packages contain multiple modules, can be said as a collection of modules. Example: Suppose we have a multi-module package like NumPy, so the modules, global variables contained in it can have any name and be common to other packages too, thus, in order to use those we can simply access them through NumPy package.
-When we import the Package, python first searches through the directories on sys.path looking for the package sub-directory. The __init__.py files are required to make python treat the directories as containing packages. In the simplest case, __init__.py can just be an empty ﬁle, but it can also execute initialization code for the package or set the __all__ variable, described later. A directory which has __init__.py which again could be empty or contain the modules present in that very directory is termed as Package in Python. The reason behind this is to prevent directories with a common name, such as string, from unintentionally hiding valid modules that occur later on the module search path.
+Use of Modules save the authors, programmers from the worry of using each other's global variables. In other words, we can have same names, variables, objects, functions in different modules and when importing them to another module or interpreter we won't have to worry of any contradiction to arise from the same names. This contradiction can be ignored because one can only access specific module's names, global variables through respective modules as Fibonacci.fib().
+
+Similar to Modules, Packages are a way of structuring Python's module namespace by using "dotted module names". Authors, programmers can be saved from worry of using each other's global variables by using Packages. Packages contain multiple modules, can be said as a collection of modules. Example: Suppose we have a multi-module package like NumPy, so the modules, global variables contained in it can have any name and be common to other packages, thus, in order to use those we can simply access them through NumPy package.
+When we import the Package, python first searches through the directories in sys.path looking for the package sub-directory. The __init__.py files are required to make python treat the directories as containing packages. In the simplest case, __init__.py can just be an empty ﬁle, but it can also execute initialization code for the package or set the __all__ variable, described later. A directory which has __init__.py which again could be empty or contain the modules present in that very directory is termed as Package in Python. The reason behind this is to prevent directories with a common name, such as string, from unintentionally hiding valid modules that occur later on the module search path.
 Creating a Package:
 First we create a directory and name it Fibonacci_Package.
 Then we need to create modules. To do this we need to create a file with the name Fibonacci.py and create its content by putting codes into it. As we already had the codes so we copied those files and pasted into Fibonacci_Package folder.
-__init__.py initialisation code:
+__init__.py initialization code:
 from module_name import funcn_name
 Ex-
 from Fibonacci import fib 
-from Fibonacci import fibonacci from FibonacciReturn import fibonacci_return
+from Fibonacci import fibonacci 
+from FibonacciReturn import fibonacci_return
 
 Interpreter-
 >>> import Fibonacci_Package 
