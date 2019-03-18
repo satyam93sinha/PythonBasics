@@ -1,6 +1,6 @@
-﻿Refer to List Comprehension3, del statement.py, Nested List Comprehension.py and Nested List Comprehension2.py
+Refer List Comprehension3, del statement.py, Nested List Comprehension.py and Nested List Comprehension2.py
 
-LIST COMPREHENSIONS-
+LIST COMPREHENSIONS -
 Provide a concise way to create lists.
 Ex-
 >>> squares=[]
@@ -10,10 +10,10 @@ Ex-
 	
 >>> squares
 [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
-# FIrst, an empty list named squares is defined, a loop is iterated over a sequence or iteration, here range(10). Thereafter, squares.append(i**2), operation is performed on those iterations and the elements are appended to squares list.
-""" In short, list comprehension marks the creation of lists in concise form through iteration of loop, operation performed on those iterations over another sequence or iteratable objects. """
+# First, an empty list named squares is defined, a loop is iterated over a sequence or iteration, here range(10). Thereafter, squares.append(i**2), operation is performed on those iterations and the elements are appended to squares list.
+""" In short, list comprehension marks the creation of lists in concise form through iteration of loop, operation performed on those iterations over another sequence or iterable objects. """
 
->>> cubes=list(map(lambda x:x**3,range(10)))
+>>> cubes=list(map(lambda x : x**3, range(10)))
 >>> cubes
 [0, 1, 8, 27, 64, 125, 216, 343, 512, 729]
 >>> type(cubes)
@@ -23,13 +23,14 @@ Ex-
 >>> quadruple
 [False]
 
->>> quad=[x**4,for x in range(10)]
-SyntaxError: invalid syntax
+>>> quad=[x**4, for x in range(10)]
+SyntaxError: invalid syntax  
+# Can be called Compilation Error
 >>> quad=[x**4 for x in range(10)]
 >>> quad
 [0, 1, 16, 81, 256, 625, 1296, 2401, 4096, 6561]
-A list comprehension consists of brackets containing an expression followed by a for clause, then zero or more for or if clauses. The result will be a new list resulting from evaluating the expression in the context of the for and if clauses which follow it. 
->>> c=[(x,y) for x in [1,2,3] for y in [3,2,4,2] if x!=y]
+A list comprehension consists of brackets containing an expression followed by a for clause, then zero or more for or if clauses. The result will be a new list resulting from evaluating the expression in the context of the for and if  clauses which follow it. 
+>>> c=[(x, y) for x in [1, 2, 3] for y in [3, 2, 4, 2] if x!=y]
 >>> c
 [(1, 3), (1, 2), (1, 4), (1, 2), (2, 3), (2, 4), (3, 2), (3, 4), (3, 2)]
 # Implementing the same in another way is:
@@ -37,7 +38,7 @@ A list comprehension consists of brackets containing an expression followed by a
 	for y in [3,2,4,2]:
 		if x!=y:
 			c=[]
-			c.append([(x,y)])
+			c.append([(x, y)])
 			print(c)
 
 			
@@ -50,35 +51,38 @@ A list comprehension consists of brackets containing an expression followed by a
 [[(3, 2)]]
 [[(3, 4)]]
 [[(3, 2)]]
-#Need to append this list into one.
->>> newList=[]
+# Need to append this list into one. Append is a list attribute, thus, we don't need to convert (x, y) to [(x, y)]. In this case, square brackets have been applied thinking (x, y) would give a tuple and then changed to list through [(x, y)].
+>>> newList = []
 >>> for x in [1,2,3]:
 	for y in [3,2,4,2]:
 		if x!=y:
-			newList.append((x,y))
+			newList.append((x, y))
 
 			
 >>> newList
 [(1, 3), (1, 2), (1, 4), (1, 2), (2, 3), (2, 4), (3, 2), (3, 4), (3, 2)]
-#Had simply to access the list formed out of looping construct's scope.
-NOTE - how the order of the for and if statements is the same in both these snippets. If the expression is a tuple (e.g. the (x, y) in the previous example), it must be parenthesized. 
+# Had simply to access the list formed out of looping construct's scope.
+NOTE - how the order of the for and if statements is same in both these snippets. If the expression is a tuple (e.g. the (x, y) in the previous example), it must be parenthesized. 
 
-THERE CAN BE ONLY ONE EXPRESSION IN LIST COMPREHENSION BEFORE WE USE FOR OR IF CLAUSES, IF IT HAS TO BE MORE WE WILL HAVE TO KEEP IT  IN A TUPLE TO GET NO ERROR.
+THERE CAN BE ONLY ONE EXPRESSION IN LIST COMPREHENSION BEFORE WE USE FOR OR IF CLAUSES, IF IT HAS TO BE MORE WE WILL HAVE TO KEEP IT IN A TUPLE TO GET NO ERROR.
 
-NESTED LIST COMPREHENSIONS-
+NESTED LIST COMPREHENSIONS -
+
 >>> matrix
 [[1, 2, 34, 5], [3, 4, 2, 35], [323, 23, 34, 44], [3, 23, 9, 89]]
->>> [[x[i] for x in matrix] for i in range(len(matrix))]
-[[1, 3, 323, 3], [2, 4, 23, 23], [34, 2, 34, 9], [5, 35, 44, 89]]
-""" nested list matrix is defined and initialized to 4X4 matrix. Each element contains 4 elements of list. x[i] checks for rows at x[0], x[1] and so on until for loop iterating over range(len(matrix)) is exhausted all these rows are then returned in new list as columns of it."""
+>>> [ [x[i] for x in matrix] for i in range( len(matrix) ) ]
+[ [1, 3, 323, 3], [2, 4, 23, 23], [34, 2, 34, 9], [5, 35, 44, 89] ]
+"""Here, nested list matrix is defined and initialized to 4X4 matrix. Each element of list contain 4 elements within. x[i] checks for rows at x[0], x[1] and so on until for loop iterating over range(len(matrix)) is exhausted all these rows are then returned in new list as columns of it. First, the loop for i in range (len(matrix)) is executed which gives the index number 0, thereafter, for x in matrix is executed to iterate over elements of outer list, we can say. I hope rest is easy to understand.
+
+If this had been the other way, for x in matrix was to be executed before the former one, we may have got the same list again because the outer element would be iterated again internally through inner loop. If you don't understand, try it this way."""
 >>> matrix
 [[1, 2, 34, 5], [3, 4, 2, 35], [323, 23, 34, 44]]
 >>> [[x[i] for x in matrix] for i in range(len(matrix))]
 [[1, 3, 323], [2, 4, 23], [34, 2, 34]]
 >>> len(matrix)
 3
->>> # fourth element is not shown as we restricted i to len(matrix),i.e,3
->>> [[x[i] for x in matrix] for i in range(4)]
+>>> # fourth element is not shown because we restricted i to len(matrix), i.e., 3
+>>> [ [x[i] for x in matrix] for i in range(4) ]
 [[1, 3, 323], [2, 4, 23], [34, 2, 34], [5, 35, 44]]
 
 IMPORTANT :
@@ -91,23 +95,23 @@ IMPORTANT :
 
 	
 >>> transpose_matrix
-[[3, 23, 87], [4, 43, 22], [2, 44, 39], [5, 53, 49]]
-# In the first line of this program we declare and define (initializing) transpose_matrix to empty list. Thereafter, for iteration starts which iterates the iteration variable over range(4), thus in the first iteration value, i is 0. Later to it, an empty list transpose is defined as empty list with every iteration occurring, because it is declared within first 'for' loop construct. Another 'for' loop is started to iterate through the elements of list- matrix (because it comprises of nested lists). Here, when loop or the iteration variable 'row' iterates over matrix, it stores the elements/nested list for sometime as happens in 'for loop' in Python. Furthermore, row[i] which in the first iteration will have value corresponding to ZEROTH element of FIRST element of matrix (nested list), it is append through append() method of list to list- transpose. In the second iteration row[0], the ZEROTH element of SECOND element of matrix is again append to transpose list, goes on until current inner 'for' loop with iteration variable 'row' exhausts. When current 'for' loop is exited, list- transpose(containing elements) is append to transpose_matrix. Then moving forward with successive iteration of i setting its value to 1 and the process goes on until this 'for' loop gets exhausted.
+[ [3, 23, 87], [4, 43, 22], [2, 44, 39], [5, 53, 49] ]
+# In the first line of this program we declare and define (initialize) transpose_matrix with an empty list. Thereafter, for iteration starts and iterates the iteration variable, i over range(4), thus in the first iteration value, i is 0. Later, an empty list transpose is set to empty list for every outer for clause iteration because it is initialized within this specific for loop. Another 'for' loop iterates through the elements of list- matrix (because matrix object, here, comprises of nested list). Here, when loop or the iteration variable 'row' iterates over matrix, it stores the elements/nested list for sometime as happens in 'for loop' in Python. Furthermore, row[i] which in the first iteration will have value corresponding to ZEROTH element of FIRST element of matrix (nested list), it is appended through append() method of list into the list- transpose. In the second iteration row[0], the ZEROTH element of SECOND element of matrix is again appended to transpose list, goes on until current inner 'for' loop with iteration variable 'row' exhausts. When current 'for' loop is exited, list- transpose(containing elements) is appended to transpose_matrix. Then moving forward with successive iteration of i setting its value to 1 and the process goes on until this 'for' loop gets exhausted.
 
->>> matrix = [[3,4,2,5,3],
+>>> matrix = [ [3,4,2,5,3],
 	      [23,43,44,53,55],
-	      [87,22,39,49,54]]
->>> [[row[i] for row in matrix]  for i in range(4)]
+	      [87,22,39,49,54] ]
+>>> [ [row[i] for row in matrix]  for i in range(4)]
 [[3, 23, 87], [4, 43, 22], [2, 44, 39], [5, 53, 49]]
 >>> # transposes  rows to columns
-# The iteration variable 'row' iterates over matrix elements setting row[i] where i depends on another loop, rather outer loop iterating over sequence range(4). This complete statement does same work which previously was done by a combination of statements, i.e, returning transposed matrix. As of now, this matrix isn't stored, it is just returned.
-In the real world, you should prefer built-in functions to complex ﬂow  statements. The zip() function would do a great job for this use case:
+# The iteration variable 'row' iterates over matrix elements setting row[i] where i depends on another loop, rather outer loop iterating over sequence range(4). This complete statement does same work which previously was done by a combination of statements, i.e., returning transposed matrix. As of now, this matrix isn't stored, it is just returned.
+In the real world, you should prefer built-in functions to complex ﬂow statements. The zip() function would do a great job for this use case:
 >>> matrix = [[23,3,4],
 	      [33,4,2]]
 >>> list(zip(matrix))
 [([23, 3, 4],), ([33, 4, 2],)]
 
-# A list nested in tuple(as an element) in another list is returned without transposing or unpacking, we haven't used *matrix.
+# A list nested in tuple(as an element) in another list is returned without transposing or unpacking, we haven't used *matrix, i.e., haven't unpacked.
 >>> list(zip(*matrix))
 [(23, 33), (3, 4), (4, 2)]
 
@@ -122,4 +126,4 @@ There is a way to remove an item from a list given its index instead of its valu
 del can also be used to delete entire variables: 
 pop deletes element and returns the same.
 >>> del a
-# when it was deleted, if we reference 'a' again, we'll get an error because there won't be any values assigned to a after we have already emptied or deleted a using del a statement.
+# when it was deleted, if we reference 'a' again, we'll get an error because there won't be any value assigned after we have already emptied or deleted a using del a statement.
