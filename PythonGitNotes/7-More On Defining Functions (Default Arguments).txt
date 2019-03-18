@@ -4,7 +4,224 @@ MORE ON DEFINING FUNCTIONS-
 
 DEFAULT ARGUMENT VALUES:
   Most useful form is to specify the default value for one or more arguments. It allows function to be called with fewer arguments than defined in definition scope. The default values are evaluated at the point of function definition in the defining scope.
+>>> def ok_prompt(prompt,retries=4,reminder='Please try again'):https://docs.python.org/3/tutorial/controlflow.html#defining-functions
+
+MORE ON DEFINING FUNCTIONS-
+
+DEFAULT ARGUMENT VALUES:
+Most useful form is to specify the default value for one or more arguments. It allows function to be called with fewer arguments than defined in definition scope. The default values are evaluated at the point of function definition in the defining scope.
+>>> def ok_prompt (prompt, retries=4, reminder='Please try again'):
+	while True:
+		ok = input(prompt)
+		if ok in ('y', 'ye', 'yes'):
+			return True
+		if ok in ('n', 'no', 'nop', 'nope'):
+			return True
+		retries = retries-1
+		if retries<0:
+			print("invalid response")
+		print(reminder)
+
+		
+>>> ok_prompt("Do you wish to continue?")
+Do you wish to continue? y
+True
+
+This function can be called in several ways:
+
+giving only the mandatory argument: ok_prompt('Do you really want to quit?')
+giving one of the optional arguments: ok_prompt('OK to overwrite the file?', 2)
+or giving all the arguments: ok_prompt('OK to overwrite the file?', 2, 'Come on, only yes or no!')
+This example introduces the in keyword which evaluates if a sequence contains certain value.
+
+The default values are evaluated at the point of function definition in the defining scope.
+
+>>> def ok_prompt (prompt, retries=4, reminder='Please try again'):
+
+	while True:
+
+		ok=input(prompt)
+      #  input keyword prompts/displays the message passed to it.
+		if ok in ('y', 'ye', 'yes'):
+
+			return True
+
+		if ok in ('n', 'no', 'nop', 'nope'):
+
+			return False
+
+		retries=retries-1
+
+		if retries<0:
+
+			print("invalid response")
+
+		print(reminder)
+
+
+
+		
+
+>>> ok_prompt("Do you wish to continue?",0,"Don't try more than once!")
+
+Do you wish to continue?
+
+invalid response
+
+Don't try more than once!
+
+Do you wish to continue?
+
+invalid response
+
+Don't try more than once!
+
+Do you wish to continue?
+
+invalid response
+
+Don't try more than once!
+
+# When I don't enter anything as input to prompt, all the 'if' control statements checking condition and corresponding to 'ok' object in 'in' keyword fail to evaluate to true, thus not executing any of the 'return' statements. Further, the control goes to performing 'retries = retries-1' decrementing 'retries' object by 1. Later, the next 'if' control statement 'if retries<0:' is checked and after being evaluated to true, 'print("invalid response")' gets executed. Later, 'print(reminder) is executed. This continues until 'while' loop terminates  which here executes infinitely because while condition is set to 'true'.
+Thereafter, the if condition retries<0 is checked but it simply prints "invalid response" and then "reminder" thus, not exiting while loop ever, if nothing is entered. Also, while loop, here, is explicitly made true. We need to 'return' "invalid response" to stop anyone entering illegal character or entering nothing to stop the infinite loop and making user exit loop or 'raise ValueError', but in both the cases reminder won't be executed, thus refrained from display.
+
 >>> def ok_prompt(prompt,retries=4,reminder='Please try again'):
+	while True:
+		ok=input(prompt)
+		if ok in ('y','ye','yes'):
+			return True
+		if ok in ('n','no','nop','nope'):
+			return False
+		retries=retries-1
+		if retries<0:
+			raise ValueError("invalid response")
+		print(reminder)
+
+		
+>>> ok_prompt("Do you wish to continue?",0)
+Do you wish to continue?
+Traceback (most recent call last):
+  File "<pyshell#34>", line 1, in <module>
+    ok_prompt("Do you wish to continue?",0)
+  File "<pyshell#33>", line 10, in ok_prompt
+    raise ValueError("invalid response")
+ValueError: invalid response
+
+# print(reminder) isn't visited/reached due to raise ValueError().
+
+>>> def ok_prompt (prompt, retries=4, reminder='Please try again'):
+	while True:
+		ok=input(prompt)
+		if ok in ('y','ye','yes'):
+			return True
+		if ok in ('n','no','nop','nope'):
+			return False
+		retries=retries-1
+		if retries<0:
+			return("invalid response")
+	print(reminder)
+
+	
+>>> ok_prompt("Do you wish to continue?", 0)
+Do you wish to continue?
+'invalid response'
+
+# return also doesn't allow execution to reach 'print(reminder)' statement.
+This example introduces the in keyword which iterates over list or iteration element/iterable object to test whether a sequence contains certain value. In other words, the 'in' keyword checks if the value/object 'ok' in this case belongs to any of the sequence, listed object or mentioned iteration element.
+
+>>> if 2 in (2):
+	print(2)
+
+	
+Traceback (most recent call last):
+  File "<pyshell#5>", line 1, in <module>
+    if 2 in (2):
+TypeError: argument of type 'int' is not iterable
+
+# Here, in requires a sequence to iterate over/iterable object to check if value provided is a part of the sequence.
+
+>>>help()
+>>>in
+# Returns or displays details of in keyword in python shell or interpreter.
+The operators "in" and "not in" test for membership.  "x in s"
+evaluates to "True" if *x* is a member of *s*, and "False" otherwise.
+"x not in s" returns the negation of "x in s".
+When used with dictionary, the membership operators check if the dictionary has any given key.
+Equivalent test in case of string type is "y.find(x) !=-1" for "x in y".
+Empty strings are always considered to be a substring of any other
+string, so """ in "abc"" will return "True".
+The operator "not in" is defined to be reversely true to the way "in" keyword works.
+>>> def f():
+	if "" in "abc":
+		return True
+	else:
+		return False
+
+	
+>>> f()
+True
+>>> i=9
+>>> def f ( arg = i):
+	print(arg)
+
+	
+>>> i
+9
+>>> f()
+9
+>>> i=102
+>>> i
+102
+>>> f()
+9
+
+Note- arguments defined as default in function is evaluated whenever function is defined or function definition occurs.
+Firstly, i is initialized to 9, function is defined with default parameter holding value of i (in reality it stores the reference to value which is stored at some memory location, arg is referred to it by assigning arg to i). arg is restricted to scope of the function whereas we can change i and when altered, still arg would refer to previous value because it has the memory location of the earlier value when it was initialized and not the new value for i.
+
+=> Important warning: The default value is evaluated only once. This makes a difference when the default is a mutable object such as a list, dictionary, or instances of most classes. For example, the following function accumulates the arguments passed to it on subsequent calls: 
+>>> def f(a, L=[]):
+	L.append(a)
+	return L
+
+>>> print(f(1))
+[1]
+>>> f(3)
+[1, 3]
+# We are passing 'a' and an empty list 'L' but it isn't always initialized to empty list. As mentioned above the default value passed as function argument is evaluated only once, thus, whenever we call function f() passing argument 'a', the list accumulates value from each subsequent call returning an appended list.
+# The default parameter 'a' is just a variable of an unknown class as value reference hasn't been passed yet, L acts and is initialized as empty List.
+Whatever value is passed in a, it is added to the last index of list through append(). append() is a method of List, it won't work on integer object because int object doesn't have any attribute as append() described in Integer class.
+
+>>> def f(a, L=None):
+	if L is None:
+		L=[]
+		L.append(a)
+		return L
+
+	
+>>> f(2)
+[2]
+>>> f(3)
+[3]
+>>> f(3,4)
+>>> print(f(3,4))
+None
+
+# When f() is called, we need to pass an argument to parameter a else error is raised, a isn't any default argument here, it hasn't been initialized. L is initialized to 'None' of class 'NoneType' thus passing nothing will give no error and L once initialized to None will remain so until any argument is passed for L. Then in next indented line if L is None evaluates to None, condition returns to true setting L=[] (empty list) allowing it to use append() method to append argument a passed to function to List. Thereafter, L is returned from if control statement. If in anyways control evaluates to false, block remain unvisited, returning nothing, displaying nothing. L if passed as argument during function call, gets initialized to specific object type.
+>>> def f(a, L=None):
+	if L is None:
+		L=[]
+	L.append(a)
+	return L
+
+>>> f(3,4)
+Traceback (most recent call last):
+  File "<pyshell#29>", line 1, in <module>
+    f(3,4)
+  File "<pyshell#28>", line 4, in f
+    L.append(a)
+AttributeError: 'int' object has no attribute 'append'
+This can only be resolved if we pass a list as second argument in above mentioned function.
+
 	while True:
 		ok=input(prompt)
 		if ok in ('y','ye','yes'):
